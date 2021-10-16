@@ -80,8 +80,8 @@ Course material
 
    15 min ; :doc:`notebooks/vampyr-intro`
    30 min ; :doc:`notebooks/vampyr-scf`
-   15 min ; :doc:`notebooks/mrchem-laptop-1`
-   15 min ; :doc:`notebooks/mrchem-laptop-2`
+   30 min ; :doc:`notebooks/mrchem-laptop-1`
+   30 min ; :doc:`notebooks/mrchem-laptop-2`
    15 min ; :doc:`notebooks/mrchem-hpc`
 
 
