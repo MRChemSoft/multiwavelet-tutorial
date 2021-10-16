@@ -64,8 +64,8 @@ Using the `MRChem <https://github.com/MRChemSoft/mrchem/>`_ program you will lea
    :maxdepth: 1
    :caption: Exercises
    
-   notebooks/V1-Vampyr-intro
-   notebooks/V2-Hydrogen-atom
+   notebooks/vampyr-intro
+   notebooks/vampyr-hydrogen
    notebooks/mrchem-laptop-1
    notebooks/mrchem-laptop-2
    notebooks/mrchem-hpc
@@ -78,8 +78,8 @@ Course material
    :widths: auto
    :delim: ;
 
-   15 min ; :doc:`notebooks/V1-Vampyr-intro`
-   30 min ; :doc:`notebooks/V2-Hydrogen-atom`
+   15 min ; :doc:`notebooks/vampyr-intro`
+   30 min ; :doc:`notebooks/vampyr-hydrogen`
    30 min ; :doc:`notebooks/mrchem-laptop-1`
    30 min ; :doc:`notebooks/mrchem-laptop-2`
    15 min ; :doc:`notebooks/mrchem-hpc`
