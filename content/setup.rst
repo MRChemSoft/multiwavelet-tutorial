@@ -36,6 +36,28 @@ for your platform:
 For all platforms, make sure to select the **Python 3.8**, **64 bit** installer.
 
 
+Cloning the MultiWavelet Tutorial repository
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+If you want to run the exercise notebooks locally on your laptop, then you can
+clone our tutorial repository. We provide a conda environment
+complete with all the things you need to run the notebooks.
+
+Clone the repostory with::
+
+  $ git clone https://github.com/MRChemSoft/multiwavelet-tutorial.git
+
+Then move into this repository::
+
+  $ cd multiwavelet-tutorial
+  
+To create the environment, use the instructions in the next section.
+Finally, launch a `Jupyter lab` instance with::
+
+  $ jupyter lab
+  
+This should open up a new tab in your default browser.
+The notebooks can be found in `content/notebooks`.
+
 Creating an environment and installing packages
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
