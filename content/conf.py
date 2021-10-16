@@ -88,7 +88,7 @@ html_theme_options = {
     "use_download_button": True,
     "home_page_in_toc": True,
     "launch_buttons": {
-        "jupyterhub_url": "https://hylleraas.jupyterhub.uio.no/",
+        "binderhub_url": "https://mybinder.org",
         "notebook_interface": "jupyterlab",
     },
 }
