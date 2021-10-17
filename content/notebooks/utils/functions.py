@@ -121,6 +121,8 @@ def submit(nprocs=None, inputfile=None):
     os.environ['OMP_NUM_THREADS'] = str(nprocs)
     subprocess.call(['mrchem', '--json',  inputfile+'.inp'])
     os.chdir(ROOT)
+    
+    print('Calculation done!')
 
 
 
