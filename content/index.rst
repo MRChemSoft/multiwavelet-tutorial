@@ -65,7 +65,7 @@ Using the `MRChem <https://github.com/MRChemSoft/mrchem/>`_ program you will lea
    :caption: Exercises
    
    notebooks/vampyr-intro
-   notebooks/vampyr-hydrogen
+   notebooks/vampyr-scf
    notebooks/mrchem-laptop-1
    notebooks/mrchem-laptop-2
    notebooks/mrchem-hpc
