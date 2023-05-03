@@ -1,0 +1,13 @@
+ 1. Wavelets an Multiwavelets: historical notes
+ 2. Exercise  1: plot a wavelet basis function
+ 3. Exercise  2: plot a polynomial scaling basis
+ 4. Exercise  3: plot a multiwavelet basis
+ 5. Exercise  4: two-scale relationships and filters: wavelet and multiwavlet versions
+ 6. Exercise  5: magic filter method (wavelets)
+ 7. Exercise  6: function projection in a MW basis (experiment with prec requirements, adaptivity, etc...)
+ 8. Exercise  7: function projection in 3d, including grid visualization
+ 9. Exercise  8: separated representation of an integral kernel
+10. Exercise  9: convolution with Poisson or Helmholtz kernel
+11. Exercise 10: application of derivative operators
+12. Exercise 11: kinetic energy operator (wavelets)
+13. Exercise 12: misc function operations: linear algebra, multiplication, mapping
