@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 project = "Multiwavelet tutorial"
-copyright = "2021, The contributors"
+copyright = "2023, The contributors"
 author = "The contributors"
 github_user = "MRChemSoft"
 github_repo_name = "multiwavelet-tutorial"  # auto-detected from dirname if blank
@@ -35,6 +35,7 @@ extensions = [
     # 'sphinx.ext.intersphinx',
     "sphinxcontrib.bibtex",
     "sphinx.ext.todo",
+    "sphinx.ext.mathjax",
     # "sphinx_thebe",
 ]
 # configure myst_nb
@@ -42,11 +43,15 @@ source_suffix = {".rst": "restructuredtext", ".ipynb": "myst-nb", ".myst": "myst
 # configure sphinxcontrib.bibtex
 bibtex_bibfiles = ["bibliography.bib"]
 # Settings for myst_nb:
-# https://myst-nb.readthedocs.io/en/latest/use/execute.html#triggering-notebook-execution
-jupyter_execute_notebooks = "off"  # no notebook execution
-# jupyter_execute_notebooks = "auto"   # *only* execute if at least one output is missing.
-# jupyter_execute_notebooks = "force"  # *always* execute notebooks
-# jupyter_execute_notebooks = "cache"  # *cache* execution outputs
+# https://myst-nb.readthedocs.io/en/latest/computation/execute.html#notebook-execution-modes
+nb_execution_mode = "off"  # no notebook execution
+myst_enable_extensions = [
+    "amsmath",
+    "colon_fence",
+    "deflist",
+    "dollarmath",
+    "html_image",
+]
 
 # Add any paths that contain templates here, relative to this directory.
 # templates_path = ['_templates']
@@ -62,7 +67,6 @@ exclude_patterns = [
     "jupyter_execute",
     "*venv*",
     "notebooks/solutions/*.ipynb",
-    "notebooks/visualization_*.ipynb"
 ]
 
 # -- Options for HTML output -------------------------------------------------
@@ -91,9 +95,6 @@ html_theme_options = {
         "binderhub_url": "https://mybinder.org",
         "notebook_interface": "jupyterlab",
     },
-}
-html_sidebars = {
-    "**": [ "sidebar-logo.html", "sbt-sidebar-nav.html", "sbt-sidebar-footer.html"]
 }
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
