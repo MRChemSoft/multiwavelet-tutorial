@@ -1,0 +1,288 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "a0e3ad25-b084-46ed-ac35-574b6744686f",
+   "metadata": {},
+   "source": [
+    "# M2: Properties with MRChem"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "57acc150-1d69-412d-84a2-50f56d0114fa",
+   "metadata": {},
+   "source": [
+    "## How to compute magnetic properties with MRChem\n",
+    "\n",
+    "Below you will find links to all all the relevant pages of the MRChem documentation. Please refer to these if you need more details on how to set up the calculations.\n",
+    "\n",
+    "[<img src=\"https://img.shields.io/badge/Documentation-Main_Page-orange.svg?logo=LOGO\">](https://mrchem.readthedocs.io/en/latest/)\n",
+    "[<img src=\"https://img.shields.io/badge/I_Need_Help-Installation-teal.svg?logo=LOGO\">](https://mrchem.readthedocs.io/en/latest/installation.html)\n",
+    "[<img src=\"https://img.shields.io/badge/I_Need_Help-How_To_Run-green.svg?logo=LOGO\">](https://mrchem.readthedocs.io/en/latest/users/running.html)\n",
+    "[<img src=\"https://img.shields.io/badge/I_Need_Help-Input_Quick_Guide-blue.svg?logo=LOGO\">](https://mrchem.readthedocs.io/en/latest/users/user_inp.html)\n",
+    "[<img src=\"https://img.shields.io/badge/I_Need_Help-Input_Reference-purple.svg?logo=LOGO\">](https://mrchem.readthedocs.io/en/latest/users/user_ref.html)\n",
+    "[<img src=\"https://img.shields.io/badge/I_Need_Help-JSON_Output-red.svg?logo=LOGO\">](https://mrchem.readthedocs.io/en/latest/users/program_json.html)\n",
+    "\n",
+    "If you need additional help, don't hesitate to ask us or take a peak at these notebooks:\n",
+    "\n",
+    "[<img src=\"https://img.shields.io/badge/Notebook-Convenience_Scripts-blue.svg?logo=LOGO\">](./convenience_scripts.ipynb)\n",
+    "[<img src=\"https://img.shields.io/badge/Notebook-Running_MRChem-blue.svg?logo=LOGO\">](./how_to_run_mrchem.ipynb)\n",
+    "[<img src=\"https://img.shields.io/badge/Notebook-Solution-blue.svg?logo=LOGO\">](./solutions/mrchem-laptop-2.ipynb)\n",
+    "\n",
+    "### Introduction\n",
+    "In this exercise you will use the MRChem code to compute NMR shielding constants for a water molecule, using the linear response implementation.\n",
+    "\n",
+    "We provide some GTO NMR data that can serve as a comparison (computed with the `ORCA` code using aug-pcJ-1, aug-pcJ-2, aug-pcJ-3, and aug-pcJ-4 London orbitals).\n",
+    "\n",
+    "The `MWn` notation is a shorthand for a relative precision of $1\\times 10^{-n}$, and is commonly used to refer to calculations of different precisions (analogous to the DZ, TZ, QZ... notation for GTO basis sets).\n",
+    "______"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "0a2058e0-2534-42fd-95c7-8ad74979ff82",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/3dmoljs_load.v0": "<div id=\"3dmolviewer_1634315050041298\"  style=\"position: relative; width: 200px; height: 200px\">\n        <p id=\"3dmolwarning_1634315050041298\" style=\"background-color:#ffcccc;color:black\">You appear to be running in JupyterLab (or JavaScript failed to load for some other reason).  You need to install the 3dmol extension: <br>\n        <tt>jupyter labextension install jupyterlab_3dmol</tt></p>\n        </div>\n<script>\n\nvar loadScriptAsync = function(uri){\n  return new Promise((resolve, reject) => {\n    var tag = document.createElement('script');\n    tag.src = uri;\n    tag.async = true;\n    tag.onload = () => {\n      resolve();\n    };\n  var firstScriptTag = document.getElementsByTagName('script')[0];\n  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);\n});\n};\n\nif(typeof $3Dmolpromise === 'undefined') {\n$3Dmolpromise = null;\n  $3Dmolpromise = loadScriptAsync('https://3dmol.org/build/3Dmol.js');\n}\n\nvar viewer_1634315050041298 = null;\nvar warn = document.getElementById(\"3dmolwarning_1634315050041298\");\nif(warn) {\n    warn.parentNode.removeChild(warn);\n}\n$3Dmolpromise.then(function() {\nviewer_1634315050041298 = $3Dmol.createViewer($(\"#3dmolviewer_1634315050041298\"),{backgroundColor:\"white\"});\nviewer_1634315050041298.zoomTo();\n\tviewer_1634315050041298.addModel(\"3\\nWater_pbe\\nO -7.515506 0.484824 3.657893\\nH -8.283582 -0.077847 3.449409\\nH -7.066811 -0.032497 4.351478\");\n\tviewer_1634315050041298.setStyle({\"stick\": {}});\n\tviewer_1634315050041298.zoomTo();\nviewer_1634315050041298.render();\n});\n</script>",
+      "text/html": [
+       "<div id=\"3dmolviewer_1634315050041298\"  style=\"position: relative; width: 200px; height: 200px\">\n",
+       "        <p id=\"3dmolwarning_1634315050041298\" style=\"background-color:#ffcccc;color:black\">You appear to be running in JupyterLab (or JavaScript failed to load for some other reason).  You need to install the 3dmol extension: <br>\n",
+       "        <tt>jupyter labextension install jupyterlab_3dmol</tt></p>\n",
+       "        </div>\n",
+       "<script>\n",
+       "\n",
+       "var loadScriptAsync = function(uri){\n",
+       "  return new Promise((resolve, reject) => {\n",
+       "    var tag = document.createElement('script');\n",
+       "    tag.src = uri;\n",
+       "    tag.async = true;\n",
+       "    tag.onload = () => {\n",
+       "      resolve();\n",
+       "    };\n",
+       "  var firstScriptTag = document.getElementsByTagName('script')[0];\n",
+       "  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);\n",
+       "});\n",
+       "};\n",
+       "\n",
+       "if(typeof $3Dmolpromise === 'undefined') {\n",
+       "$3Dmolpromise = null;\n",
+       "  $3Dmolpromise = loadScriptAsync('https://3dmol.org/build/3Dmol.js');\n",
+       "}\n",
+       "\n",
+       "var viewer_1634315050041298 = null;\n",
+       "var warn = document.getElementById(\"3dmolwarning_1634315050041298\");\n",
+       "if(warn) {\n",
+       "    warn.parentNode.removeChild(warn);\n",
+       "}\n",
+       "$3Dmolpromise.then(function() {\n",
+       "viewer_1634315050041298 = $3Dmol.createViewer($(\"#3dmolviewer_1634315050041298\"),{backgroundColor:\"white\"});\n",
+       "viewer_1634315050041298.zoomTo();\n",
+       "\tviewer_1634315050041298.addModel(\"3\\nWater_pbe\\nO -7.515506 0.484824 3.657893\\nH -8.283582 -0.077847 3.449409\\nH -7.066811 -0.032497 4.351478\");\n",
+       "\tviewer_1634315050041298.setStyle({\"stick\": {}});\n",
+       "\tviewer_1634315050041298.zoomTo();\n",
+       "viewer_1634315050041298.render();\n",
+       "});\n",
+       "</script>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "# 3D viewer for the water molecule\n",
+    "import py3Dmol\n",
+    "\n",
+    "view = py3Dmol.view(width=200, height=200)\n",
+    "view.addModel(open('geometries/water.xyz').read())\n",
+    "view.setStyle({'stick': {}})\n",
+    "view.zoomTo()\n",
+    "view.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "78228324-5a6a-485e-acb9-365019692f20",
+   "metadata": {},
+   "source": [
+    "GTO data:\n",
+    "\n",
+    "```python\n",
+    "[('dz', '0o', 319.317, 52.281),\n",
+    " ('dz', '1h', 30.918, 18.326),\n",
+    " ('dz', '2h', 30.918, 18.326),\n",
+    " ('tz', '0o', 319.156, 52.351),\n",
+    " ('tz', '1h', 30.766, 18.54),\n",
+    " ('tz', '2h', 30.766, 18.54),\n",
+    " ('qz', '0o', 319.183, 52.345),\n",
+    " ('qz', '1h', 30.715, 18.62),\n",
+    " ('qz', '2h', 30.715, 18.62),\n",
+    " ('5z', '0o', 319.158, 52.345),\n",
+    " ('5z', '1h', 30.71, 18.627),\n",
+    " ('5z', '2h', 30.71, 18.627)]\n",
+    " ```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "95d1e7a6-f91f-4500-a011-cb8eef0d1429",
+   "metadata": {},
+   "source": [
+    "### The MRChem input file\n",
+    "Below is an outline of an MRChem input for an NMR properties calculation at the MW3 precision level.\n",
+    "Try to use the documentation pages to find the relevant keywords for setting up the calculation.\n",
+    "If you need additional help, don't hesitate to ask :)\n",
+    "\n",
+    "```\n",
+    "world_prec = 1.0e-3\n",
+    "world_unit = angstrom\n",
+    "\n",
+    "Molecule {\n",
+    "  $coords\n",
+    "  ...\n",
+    "  $end\n",
+    "}\n",
+    "\n",
+    "WaveFunction {\n",
+    "}\n",
+    "\n",
+    "SCF {\n",
+    "}\n",
+    "\n",
+    "Properties {\n",
+    "}\n",
+    "\n",
+    "Response {\n",
+    "}\n",
+    "\n",
+    "```\n",
+    "______\n",
+    "\n",
+    "### Computational details\n",
+    "* The GTO results were computed with the PBE functional, and so you should also use PBE if the results are to comparable.\n",
+    "* An optimized geometry of water is supplied in `./geometries/water.xyz`.\n",
+    "* Use a KAIN SCF and response accelerator history of 5.\n",
+    "* Make sure the SCF and response `max_iter` options are large enough (20 should be plenty).\n",
+    "* As starting guess for the SCF, `sad_dz` works well.\n",
+    "\n",
+    "> **Note**\n",
+    "> Input blocks are case sensitive, while keywords inside blocks are not\n",
+    "_____\n",
+    "\n",
+    "### Instructions\n",
+    " 1. Generate the necessary input files. You can either do this in your favorite command line text editor, or write Python scripts from within the notebook. We give some tips on the notebook route below.\n",
+    " \n",
+    " 2. Submit the calculations as described above (terminal route) or below (notebook route).\n",
+    " \n",
+    " 3. You are encouraged to take a look at the output file (`jobname.out`) to look at the information printed here, and also to check out the JSON output file (`jobname.json`) to see the same output in a very scripting friendly format.\n",
+    " \n",
+    " 4. Extract the relevant information from either the `jobname.out` file or the `jobname.json` file.\n",
+    " \n",
+    " 5. Using the MW5 data as a reference, compute the basis set errors for the other methods. Try to visualize these either as a table or by plotting the errors.\n",
+    " _______"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d7ab3792-8ccb-4f0f-b7f7-28d38a81cedc",
+   "metadata": {},
+   "source": [
+    "# Performing the calculations\n",
+    "\n",
+    "Run calculations for at the MW3, MW4, and MW5 precision levels"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "15f3c11f-9e9b-4db8-a60c-1d46e09d1a7c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from utils.functions import makeNMRInput, submit"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ae73056b-9074-46cf-ac29-94776af7176d",
+   "metadata": {},
+   "source": [
+    "## Step 1: Generate input file\n",
+    "\n",
+    "`makeNMRInput` will generate an input file in the current directory. Check out the `convenience_scripts.ipynb` Notebook for more help on how to use the function.\n",
+    "\n",
+    "Fill in the missing data below to generate an input file in the current working directory."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d1a37044-7ccd-4690-b0cc-93cc4466defc",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "jobname = ...  # without extension\n",
+    "prec = ...\n",
+    "xyzfile = ...\n",
+    "\n",
+    "makeNMRInput(...)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2b17f48d-e3dc-4f33-826c-61d34c937849",
+   "metadata": {},
+   "source": [
+    "## Step 2: Call MRChem and run the job\n",
+    "\n",
+    "`submit` will generate a new directory to which it moves the previously generated input file (which must exist). It then sets up the `OMP_NUMBER_THREADS` environment variable, and calls MRChem."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d6985093-fd1e-4231-b90e-18f7232e8281",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "nprocs = ...\n",
+    "inputfile = ...  # without extension\n",
+    "\n",
+    "submit(...)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2af07fd7-d15c-410e-8441-3232015193b2",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

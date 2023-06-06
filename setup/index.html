@@ -1,0 +1,561 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Setting up your system</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/minipres.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="V1: VAMPyR introduction" href="../notebooks/vampyr-intro/" />
+    <link rel="prev" title="Multiwavelet tutorial" href="../" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search/"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/hylleraas-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/hylleraas-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../">
+                    Multiwavelet tutorial
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Setting up your system</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercises</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/vampyr-intro/">V1: VAMPyR introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/vampyr-scf/">V2: SCF optimization with VAMPyR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/mrchem-laptop-1/">M1: Energies with MRChem</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/mrchem-laptop-2/">M2: Properties with MRChem</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/mrchem-hpc/">M3: MRChem on HPC cluster</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/MRChemSoft/multiwavelet-tutorial" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MRChemSoft/multiwavelet-tutorial/edit/master/content/setup.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MRChemSoft/multiwavelet-tutorial/issues/new?title=Issue%20on%20page%20%2Fsetup.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/setup.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Setting up your system</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-miniconda">Install Miniconda</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloning-the-multiwavelet-tutorial-repository">Cloning the MultiWavelet Tutorial repository</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-an-environment-and-installing-packages">Creating an environment and installing packages</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="setting-up-your-system">
+<span id="setup"></span><h1>Setting up your system<a class="headerlink" href="#setting-up-your-system" title="Permalink to this heading">#</a></h1>
+<p>In order to follow this workshop, you will need access to the VAMPyR python
+package and the MRChem program.</p>
+<p>You can work on the VAMPyR content entirely online using <a class="reference external" href="https://mybinder.org">Binder</a>
+to run the Jupyter notebooks in the cloud, but some of the MRChem exercises are best
+performed on a HPC cluster.</p>
+<p>If you prefer to work locally, you will need to set up your Python environment correctly:
+we recommend using the <a class="reference external" href="https://docs.conda.io/en/latest/">Conda package and enviroment manager</a>, as it provides a convenient way to install
+binary packages, including VAMPyR and MRChem, in an isolated, reproducible software
+environment.</p>
+<p>Please refer to the respective GitHub repositories for different ways of installing:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/MRChemSoft/vampyr/blob/master/README.md">VAMPyR</a></p></li>
+<li><p><a class="reference external" href="https://github.com/MRChemSoft/mrchem/blob/master/README.md">MRChem</a></p></li>
+</ul>
+<section id="install-miniconda">
+<h2>Install Miniconda<a class="headerlink" href="#install-miniconda" title="Permalink to this heading">#</a></h2>
+<p>Follow the official <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a>  installation instructions
+for your platform:</p>
+<ul class="simple">
+<li><p>For Linux see <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html#linux-installers">https://docs.conda.io/en/latest/miniconda.html#linux-installers</a></p></li>
+<li><p>For macOS see <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html#macosx-installers">https://docs.conda.io/en/latest/miniconda.html#macosx-installers</a></p></li>
+<li><p>For Windows see <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html#windows-installers">https://docs.conda.io/en/latest/miniconda.html#windows-installers</a></p></li>
+</ul>
+<p>For all platforms, make sure to select the <strong>Python 3.8</strong>, <strong>64 bit</strong> installer.</p>
+</section>
+<section id="cloning-the-multiwavelet-tutorial-repository">
+<h2>Cloning the MultiWavelet Tutorial repository<a class="headerlink" href="#cloning-the-multiwavelet-tutorial-repository" title="Permalink to this heading">#</a></h2>
+<p>If you want to run the exercise notebooks locally on your laptop, then you can
+clone our tutorial repository. We provide a conda environment
+complete with all the things you need to run the notebooks.</p>
+<p>Clone the repostory with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/MRChemSoft/multiwavelet-tutorial.git
+</pre></div>
+</div>
+<p>Then move into this repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd multiwavelet-tutorial
+</pre></div>
+</div>
+<p>To create the environment, use the instructions in the next section.
+Finally, launch a <cite>Jupyter lab</cite> instance with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ jupyter lab
+</pre></div>
+</div>
+<p>This should open up a new tab in your default browser.
+The notebooks can be found in <cite>content/notebooks</cite>.</p>
+</section>
+<section id="creating-an-environment-and-installing-packages">
+<h2>Creating an environment and installing packages<a class="headerlink" href="#creating-an-environment-and-installing-packages" title="Permalink to this heading">#</a></h2>
+<p>Once you have <code class="docutils literal notranslate"><span class="pre">conda</span></code> installed and correctly configured you can use the
+<a class="reference download internal" download="" href="../_downloads/1e955aa7952605b36c4491740042f7a7/environment.yml"><code class="xref download docutils literal notranslate"><span class="pre">environment.yml</span></code></a> file to install the
+dependencies.  First save it to your hard drive by clicking the link, and then
+in a terminal (Anaconda Prompt on Windows) navigate to where you saved the file
+and type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda env create -f environment.yml
+</pre></div>
+</div>
+<p>You then need to activate the new environment by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda activate mw-tutorial
+</pre></div>
+</div>
+<p>Now you should have VAMPyR, MRChem, Python, JupyterLab and a few other packages installed!</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Multiwavelet tutorial</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../notebooks/vampyr-intro/"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">V1: VAMPyR introduction</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-miniconda">Install Miniconda</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloning-the-multiwavelet-tutorial-repository">Cloning the MultiWavelet Tutorial repository</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-an-environment-and-installing-packages">Creating an environment and installing packages</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, The contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

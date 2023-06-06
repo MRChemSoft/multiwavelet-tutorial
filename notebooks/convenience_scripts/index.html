@@ -1,0 +1,690 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Convenience scripts</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_lesson.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/minipres.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search/"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/hylleraas-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/hylleraas-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../">
+                    Multiwavelet tutorial
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../setup/">Setting up your system</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercises</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../vampyr-intro/">V1: VAMPyR introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vampyr-scf/">V2: SCF optimization with VAMPyR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mrchem-laptop-1/">M1: Energies with MRChem</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../mrchem-laptop-2/">M2: Properties with MRChem</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../mrchem-hpc/">M3: MRChem on HPC cluster</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/MRChemSoft/multiwavelet-tutorial/master?urlpath=lab/tree/content/notebooks/convenience_scripts.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/MRChemSoft/multiwavelet-tutorial" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MRChemSoft/multiwavelet-tutorial/edit/master/content/notebooks/convenience_scripts.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MRChemSoft/multiwavelet-tutorial/issues/new?title=Issue%20on%20page%20%2Fnotebooks/convenience_scripts.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/convenience_scripts.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Convenience scripts</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-parser">Output parser</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-input-files">Make input files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-mrchem-job">Submit MRChem job</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="convenience-scripts">
+<h1>Convenience scripts<a class="headerlink" href="#convenience-scripts" title="Permalink to this heading">#</a></h1>
+<p>This notebook gives some help on the convenience functions to be used in the exercises.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">utils.functions</span> <span class="kn">import</span> <span class="n">MRChemOutput</span><span class="p">,</span> <span class="n">makeEnergyInput</span><span class="p">,</span> <span class="n">makeNMRInput</span><span class="p">,</span> <span class="n">submit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="output-parser">
+<h2>Output parser<a class="headerlink" href="#output-parser" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">MRChemOutput</span></code> is a convenience class for parsing JSON output files.
+It contains methods for accessing the relevant properties for the exercises.</p>
+<p>You initialize the class by passing in the path to the JSON output file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">MRChemOutput</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on class MRChemOutput in module utils.functions:
+
+class MRChemOutput(builtins.object)
+ |  MRChemOutput(jsonfile)
+ |  
+ |  Convenience class for accessing data from an MRChem calculation.
+ |  
+ |  You can access the JSON data via the data attribute.
+ |  For example, to get the final SCF total energy:
+ |  
+ |  
+ |  []: calc = MRChemOutput(&#39;jobname.json&#39;)
+ |      E_tot = calc.data[&#39;output&#39;][&#39;properties&#39;][&#39;scf_energy&#39;][&#39;E_tot&#39;]
+ |  
+ |  Additionally, the JSON is loaded as a nested SimpleNamespace
+ |  (stored in the ns attribute),
+ |  and you can quickly navigate the dict by &#39;dotting&#39; through
+ |  the keys. Tab completion should work for this in the Jupyter
+ |  environment:
+ |  
+ |  []: E_tot = calc.ns.output.properties.scf_energy.E_tot
+ |  
+ |  Known bug
+ |  Some keys are not valid Python variable names,
+ |  and you cannot access the levels below these keys by dotting.
+ |  Workaround: use __.getattribute__(key) to access such keys.
+ |  
+ |  A few methods are also provided that serve as shortcuts
+ |  for navigating the data dictionary, and for plotting
+ |  SCF convergence data.
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, jsonfile)
+ |      Parameters:
+ |      jsonfile &lt;str&gt;: Path to MRChem output JSON file
+ |  
+ |  getFinalSCFEnergy(self) -&gt; float
+ |      Return optimized SCF energy in Hartrees.
+ |  
+ |  getNMRShieldingAnisotropy(self) -&gt; dict
+ |      Return anisotropy of the diagonalized NMR shielding tensor.
+ |  
+ |  getNMRShieldingIsotropicAverage(self) -&gt; dict
+ |      Return isotropic average of total NMR shielding tensor.
+ |  
+ |  getNMRShieldingTensors(self) -&gt; dict
+ |      Return total NMR shielding tensor.
+ |  
+ |  getNMRShieldingTensorsDiagonalized(self) -&gt; dict
+ |      Return diagonalized total NMR shielding tensor.
+ |  
+ |  getNMRShieldingTensorsDiamagnetic(self) -&gt; dict
+ |      Return diamagnetic contribution to NMR shielding tensor.
+ |  
+ |  getNMRShieldingTensorsParamagnetic(self) -&gt; dict
+ |      Return paramagnetic contribution to NMR shielding tensor.
+ |  
+ |  getResponseConvergence(self) -&gt; list
+ |      Return convergence data for the x, y, and z dimension response SCFs.
+ |  
+ |  getSCFConvergence(self) -&gt; list
+ |      Return list of tuples containing total energy, energy update, and MO residuals
+ |      for all SCF iterations.
+ |  
+ |  getWalltime(self)
+ |  
+ |  normalTermination(self)
+ |  
+ |  plotResponseConvergence(self)
+ |      Plot the response SCF convergence in terms of the property, property update, and MO residual.
+ |  
+ |  plotSCFConvergence(self)
+ |      Plot the SCF convergence in terms of total energy, energy udpates, and MO residuals.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="make-input-files">
+<h2>Make input files<a class="headerlink" href="#make-input-files" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">makeEnergyInput</span></code> generates an MRChem input file in the current directory, with a precision and the filename as specified.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">makeEnergyInput</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function makeEnergyInput in module utils.functions:
+
+makeEnergyInput(world_prec=None, xyzfile=None, fname=None)
+    Write MRChem JSON input file for energy calculation.
+    
+    Parameters:
+    -------------
+    
+    world_prec: precision to use
+    xyzfile: path to xyzfile
+    fname: name of the generated input file (without extension, .inp assumed)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">makeNMRInput</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function makeNMRInput in module utils.functions:
+
+makeNMRInput(world_prec=None, xyzfile=None, fname=None)
+    Write MRChem JSON input file for NMR calculation.
+    
+    Parameters:
+    -------------
+    
+    world_prec: precision to use
+    xyzfile: path to xyzfile
+    fname: name of the generated input file (without extension, .inp assumed)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="submit-mrchem-job">
+<h2>Submit MRChem job<a class="headerlink" href="#submit-mrchem-job" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">submit</span></code> makes makes a calc dir <code class="docutils literal notranslate"><span class="pre">&lt;inputfile&gt;_calc</span></code>, moves the input file to this directory, and calls MRChem.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">submit</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function submit in module utils.functions:
+
+submit(nprocs=None, inputfile=None)
+    Make calc dir, move inputfile, and start the calculation.
+    
+    Parameters:
+    -----------
+    nprocs      : Number of OpenMP threads to use
+    inputfile   : Name of input file (without extension)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-parser">Output parser</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-input-files">Make input files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-mrchem-job">Submit MRChem job</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, The contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

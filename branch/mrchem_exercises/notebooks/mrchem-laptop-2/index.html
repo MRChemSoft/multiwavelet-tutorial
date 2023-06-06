@@ -1,0 +1,560 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2. Properties with MRChem</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_lesson.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/minipres.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Exercise 3: Compute NMR Shielding Constants and Magnetizibility for a Transition Metal Complex" href="../mrchem-hpc/" />
+    <link rel="prev" title="1. Energies with MRChem" href="../mrchem-laptop-1/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/hylleraas-logo.png" class="logo" alt="logo">
+      
+      
+    </a>
+</div><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../">
+   Multiwavelet tutorial
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../setup/">
+   Setting up your system
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Exercises
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../vampyr-intro/">
+   VAMPyR introduction goes here
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../vampyr-scf/">
+   VAMPyR SCF exercise goes here
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mrchem-laptop-1/">
+   1. Energies with MRChem
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   2. Properties with MRChem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mrchem-hpc/">
+   Exercise 3: Compute NMR Shielding Constants and Magnetizibility for a Transition Metal Complex
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/notebooks/mrchem-laptop-2.ipynb.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/MRChemSoft/multiwavelet-tutorial"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/MRChemSoft/multiwavelet-tutorial/issues/new?title=Issue%20on%20page%20%2Fnotebooks/mrchem-laptop-2.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/MRChemSoft/multiwavelet-tutorial/edit/master/content/notebooks/mrchem-laptop-2.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/MRChemSoft/multiwavelet-tutorial/master?urlpath=lab/tree/content/notebooks/mrchem-laptop-2.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   2. Properties with MRChem
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-to-compute-magnetic-properties-with-mrchem">
+     How to compute magnetic properties with MRChem
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#introduction">
+       Introduction
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#the-mrchem-input-file">
+       The MRChem input file
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#computational-details">
+       Computational details
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#instructions">
+       Instructions
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#performing-the-calculations">
+   Performing the calculations
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-1-generate-input-file">
+     Step 1: Generate input file
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-2-call-mrchem-and-run-the-job">
+     Step 2: Call MRChem and run the job
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="properties-with-mrchem">
+<h1>2. Properties with MRChem<a class="headerlink" href="#properties-with-mrchem" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="how-to-compute-magnetic-properties-with-mrchem">
+<h2>How to compute magnetic properties with MRChem<a class="headerlink" href="#how-to-compute-magnetic-properties-with-mrchem" title="Permalink to this headline">¶</a></h2>
+<p>Below you will find links to all all the relevant pages of the MRChem documentation. Please refer to these if you need more details on how to set up the calculations.</p>
+<p><a class="reference external" href="https://mrchem.readthedocs.io/en/latest/"><img src="https://img.shields.io/badge/Documentation-Main_Page-orange.svg?logo=LOGO"></a>
+<a class="reference external" href="https://mrchem.readthedocs.io/en/latest/installation.html"><img src="https://img.shields.io/badge/I_Need_Help-Installation-teal.svg?logo=LOGO"></a>
+<a class="reference external" href="https://mrchem.readthedocs.io/en/latest/users/running.html"><img src="https://img.shields.io/badge/I_Need_Help-How_To_Run-green.svg?logo=LOGO"></a>
+<a class="reference external" href="https://mrchem.readthedocs.io/en/latest/users/user_inp.html"><img src="https://img.shields.io/badge/I_Need_Help-Input_Quick_Guide-blue.svg?logo=LOGO"></a>
+<a class="reference external" href="https://mrchem.readthedocs.io/en/latest/users/user_ref.html"><img src="https://img.shields.io/badge/I_Need_Help-Input_Reference-purple.svg?logo=LOGO"></a>
+<a class="reference external" href="https://mrchem.readthedocs.io/en/latest/users/program_json.html"><img src="https://img.shields.io/badge/I_Need_Help-JSON_Output-red.svg?logo=LOGO"></a></p>
+<p>If you need additional help, don’t hesitate to ask us or take a peak at these notebooks:</p>
+<p><a class="reference internal" href="../convenience_scripts/"><span class="doc std std-doc"><img src="https://img.shields.io/badge/Notebook-Convenience_Scripts-blue.svg?logo=LOGO"></span></a>
+<a class="reference internal" href="../how_to_run_mrchem/"><span class="doc std std-doc"><img src="https://img.shields.io/badge/Notebook-Running_MRChem-blue.svg?logo=LOGO"></span></a>
+<span class="xref myst"><img src="https://img.shields.io/badge/Notebook-Solution-blue.svg?logo=LOGO"></span></p>
+<div class="section" id="introduction">
+<h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
+<p>In this exercise you will use the MRChem code to compute NMR shielding constants for a water molecule, using the linear response implementation.</p>
+<p>We provide some GTO NMR data that can serve as a comparison (computed with the <code class="docutils literal notranslate"><span class="pre">ORCA</span></code> code using aug-pcJ-1, aug-pcJ-2, aug-pcJ-3, and aug-pcJ-4 London orbitals).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">MWn</span></code> notation is a shorthand for a relative precision of <span class="math notranslate nohighlight">\(1\times 10^{-n}\)</span>, and is commonly used to refer to calculations of different precisions (analogous to the DZ, TZ, QZ… notation for GTO basis sets).</p>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3D viewer for the water molecule</span>
+<span class="kn">import</span> <span class="nn">py3Dmol</span>
+
+<span class="n">view</span> <span class="o">=</span> <span class="n">py3Dmol</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">addModel</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;geometries/water.xyz&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="n">view</span><span class="o">.</span><span class="n">setStyle</span><span class="p">({</span><span class="s1">&#39;stick&#39;</span><span class="p">:</span> <span class="p">{}})</span>
+<span class="n">view</span><span class="o">.</span><span class="n">zoomTo</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div id="3dmolviewer_1634315050041298"  style="position: relative; width: 200px; height: 200px">
+        <p id="3dmolwarning_1634315050041298" style="background-color:#ffcccc;color:black">You appear to be running in JupyterLab (or JavaScript failed to load for some other reason).  You need to install the 3dmol extension: <br>
+        <tt>jupyter labextension install jupyterlab_3dmol</tt></p>
+        </div>
+<script>
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+      resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+};
+
+if(typeof $3Dmolpromise === 'undefined') {
+$3Dmolpromise = null;
+  $3Dmolpromise = loadScriptAsync('https://3dmol.org/build/3Dmol.js');
+}
+
+var viewer_1634315050041298 = null;
+var warn = document.getElementById("3dmolwarning_1634315050041298");
+if(warn) {
+    warn.parentNode.removeChild(warn);
+}
+$3Dmolpromise.then(function() {
+viewer_1634315050041298 = $3Dmol.createViewer($("#3dmolviewer_1634315050041298"),{backgroundColor:"white"});
+viewer_1634315050041298.zoomTo();
+	viewer_1634315050041298.addModel("3\nWater_pbe\nO -7.515506 0.484824 3.657893\nH -8.283582 -0.077847 3.449409\nH -7.066811 -0.032497 4.351478");
+	viewer_1634315050041298.setStyle({"stick": {}});
+	viewer_1634315050041298.zoomTo();
+viewer_1634315050041298.render();
+});
+</script></div></div>
+</div>
+<p>GTO data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[(</span><span class="s1">&#39;dz&#39;</span><span class="p">,</span> <span class="s1">&#39;0o&#39;</span><span class="p">,</span> <span class="mf">319.317</span><span class="p">,</span> <span class="mf">52.281</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;dz&#39;</span><span class="p">,</span> <span class="s1">&#39;1h&#39;</span><span class="p">,</span> <span class="mf">30.918</span><span class="p">,</span> <span class="mf">18.326</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;dz&#39;</span><span class="p">,</span> <span class="s1">&#39;2h&#39;</span><span class="p">,</span> <span class="mf">30.918</span><span class="p">,</span> <span class="mf">18.326</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;tz&#39;</span><span class="p">,</span> <span class="s1">&#39;0o&#39;</span><span class="p">,</span> <span class="mf">319.156</span><span class="p">,</span> <span class="mf">52.351</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;tz&#39;</span><span class="p">,</span> <span class="s1">&#39;1h&#39;</span><span class="p">,</span> <span class="mf">30.766</span><span class="p">,</span> <span class="mf">18.54</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;tz&#39;</span><span class="p">,</span> <span class="s1">&#39;2h&#39;</span><span class="p">,</span> <span class="mf">30.766</span><span class="p">,</span> <span class="mf">18.54</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;qz&#39;</span><span class="p">,</span> <span class="s1">&#39;0o&#39;</span><span class="p">,</span> <span class="mf">319.183</span><span class="p">,</span> <span class="mf">52.345</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;qz&#39;</span><span class="p">,</span> <span class="s1">&#39;1h&#39;</span><span class="p">,</span> <span class="mf">30.715</span><span class="p">,</span> <span class="mf">18.62</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;qz&#39;</span><span class="p">,</span> <span class="s1">&#39;2h&#39;</span><span class="p">,</span> <span class="mf">30.715</span><span class="p">,</span> <span class="mf">18.62</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;5z&#39;</span><span class="p">,</span> <span class="s1">&#39;0o&#39;</span><span class="p">,</span> <span class="mf">319.158</span><span class="p">,</span> <span class="mf">52.345</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;5z&#39;</span><span class="p">,</span> <span class="s1">&#39;1h&#39;</span><span class="p">,</span> <span class="mf">30.71</span><span class="p">,</span> <span class="mf">18.627</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;5z&#39;</span><span class="p">,</span> <span class="s1">&#39;2h&#39;</span><span class="p">,</span> <span class="mf">30.71</span><span class="p">,</span> <span class="mf">18.627</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-mrchem-input-file">
+<h3>The MRChem input file<a class="headerlink" href="#the-mrchem-input-file" title="Permalink to this headline">¶</a></h3>
+<p>Below is an outline of an MRChem input for an NMR properties calculation at the MW3 precision level.
+Try to use the documentation pages to find the relevant keywords for setting up the calculation.
+If you need additional help, don’t hesitate to ask :)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>world_prec = 1.0e-3
+world_unit = angstrom
+
+Molecule {
+  $coords
+  ...
+  $end
+}
+
+WaveFunction {
+}
+
+SCF {
+}
+
+Properties {
+}
+
+Response {
+}
+
+</pre></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="computational-details">
+<h3>Computational details<a class="headerlink" href="#computational-details" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The GTO results were computed with the PBE functional, and so you should also use PBE if the results are to comparable.</p></li>
+<li><p>An optimized geometry of water is supplied in <code class="docutils literal notranslate"><span class="pre">./geometries/water.xyz</span></code>.</p></li>
+<li><p>Use a KAIN SCF and response accelerator history of 5.</p></li>
+<li><p>Make sure the SCF and response <code class="docutils literal notranslate"><span class="pre">max_iter</span></code> options are large enough (20 should be plenty).</p></li>
+<li><p>As starting guess for the SCF, <code class="docutils literal notranslate"><span class="pre">sad_dz</span></code> works well.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Note</strong>
+Input blocks are case sensitive, while keywords inside blocks are not</p>
+</div></blockquote>
+</div>
+<hr class="docutils" />
+<div class="section" id="instructions">
+<h3>Instructions<a class="headerlink" href="#instructions" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>Generate the necessary input files. You can either do this in your favorite command line text editor, or write Python scripts from within the notebook. We give some tips on the notebook route below.</p></li>
+<li><p>Submit the calculations as described above (terminal route) or below (notebook route).</p></li>
+<li><p>You are encouraged to take a look at the output file (<code class="docutils literal notranslate"><span class="pre">jobname.out</span></code>) to look at the information printed here, and also to check out the JSON output file (<code class="docutils literal notranslate"><span class="pre">jobname.json</span></code>) to see the same output in a very scripting friendly format.</p></li>
+<li><p>Extract the relevant information from either the <code class="docutils literal notranslate"><span class="pre">jobname.out</span></code> file or the <code class="docutils literal notranslate"><span class="pre">jobname.json</span></code> file.</p></li>
+<li><p>Using the MW5 data as a reference, compute the basis set errors for the other methods. Try to visualize these either as a table or by plotting the errors.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="tex2jax_ignore mathjax_ignore section" id="performing-the-calculations">
+<h1>Performing the calculations<a class="headerlink" href="#performing-the-calculations" title="Permalink to this headline">¶</a></h1>
+<p>Run calculations for at the MW3, MW4, and MW5 precision levels</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">utils.functions</span> <span class="kn">import</span> <span class="n">makeNMRInput</span><span class="p">,</span> <span class="n">submit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="step-1-generate-input-file">
+<h2>Step 1: Generate input file<a class="headerlink" href="#step-1-generate-input-file" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">makeNMRInput</span></code> will generate an input file in the current directory. Check out the <code class="docutils literal notranslate"><span class="pre">convenience_scripts.ipynb</span></code> Notebook for more help on how to use the function.</p>
+<p>Fill in the missing data below to generate an input file in the current working directory.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jobname</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># without extension</span>
+<span class="n">prec</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">xyzfile</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="n">makeNMRInput</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="step-2-call-mrchem-and-run-the-job">
+<h2>Step 2: Call MRChem and run the job<a class="headerlink" href="#step-2-call-mrchem-and-run-the-job" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">submit</span></code> will generate a new directory to which it moves the previously generated input file (which must exist). It then sets up the <code class="docutils literal notranslate"><span class="pre">OMP_NUMBER_THREADS</span></code> environment variable, and calls MRChem.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nprocs</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">inputfile</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># without extension</span>
+
+<span class="n">submit</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "MRChemSoft/multiwavelet-tutorial",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="../mrchem-laptop-1/" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">1. Energies with MRChem</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="../mrchem-hpc/" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Exercise 3: Compute NMR Shielding Constants and Magnetizibility for a Transition Metal Complex</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By The contributors<br/>
+        
+            &copy; Copyright 2021, The contributors.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

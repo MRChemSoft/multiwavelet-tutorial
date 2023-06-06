@@ -1,0 +1,868 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>V1: VAMPyR introduction</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_lesson.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/minipres.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="V2: SCF optimization with VAMPyR" href="../vampyr-scf/" />
+    <link rel="prev" title="Setting up your system" href="../../setup/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search/"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/hylleraas-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/hylleraas-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../">
+                    Multiwavelet tutorial
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../setup/">Setting up your system</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercises</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">V1: VAMPyR introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vampyr-scf/">V2: SCF optimization with VAMPyR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mrchem-laptop-1/">M1: Energies with MRChem</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../mrchem-laptop-2/">M2: Properties with MRChem</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../mrchem-hpc/">M3: MRChem on HPC cluster</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/MRChemSoft/multiwavelet-tutorial/master?urlpath=lab/tree/content/notebooks/vampyr-intro.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/MRChemSoft/multiwavelet-tutorial" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MRChemSoft/multiwavelet-tutorial/edit/master/content/notebooks/vampyr-intro.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MRChemSoft/multiwavelet-tutorial/issues/new?title=Issue%20on%20page%20%2Fnotebooks/vampyr-intro.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/vampyr-intro.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>V1: VAMPyR introduction</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prologue">Prologue</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiresolution-analysis-mra">MultiResolution Analysis (MRA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-projection">Function projection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-fixed-scale-projection-1d">Example: Fixed scale projection 1D</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-adaptive-projection-3d">Example: Adaptive projection 3D</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arithmethic-operations">Arithmethic operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-scaling-and-normalization">Example: scaling and normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-addition-and-multiplication">Example: addition and multiplication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-norms-integrals-and-dot-products">Example: norms, integrals and dot products</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operators">Operators</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-convolution-operator">Example: convolution operator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-derivative-operator">Example: derivative operator</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="v1-vampyr-introduction">
+<h1>V1: VAMPyR introduction<a class="headerlink" href="#v1-vampyr-introduction" title="Permalink to this heading">#</a></h1>
+<section id="prologue">
+<h2>Prologue<a class="headerlink" href="#prologue" title="Permalink to this heading">#</a></h2>
+<p>The VAMPyR package can be imported in the following way, along with any other useful Python package you want to use. Remember to choose the appropriate dimensionality in the vampyr package name.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vampyr</span> <span class="kn">import</span> <span class="n">vampyr3d</span> <span class="k">as</span> <span class="n">vp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Some documentation is available through the <code class="docutils literal notranslate"><span class="pre">help</span></code> function, e.g.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">vp</span><span class="o">.</span><span class="n">ScalingProjector</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="multiresolution-analysis-mra">
+<h2>MultiResolution Analysis (MRA)<a class="headerlink" href="#multiresolution-analysis-mra" title="Permalink to this heading">#</a></h2>
+<p>The MRA defines the computational domain and the polynomial basis. The domain needs to be either symmetric around the origin <span class="math notranslate nohighlight">\([-L,L]^D\)</span> or in the positive hyperoctant <span class="math notranslate nohighlight">\([0,L]^D\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vampyr</span> <span class="kn">import</span> <span class="n">vampyr3d</span> <span class="k">as</span> <span class="n">vp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">5</span>              <span class="c1"># Polynomial order 0 &lt; k &lt; 40</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">1</span>              <span class="c1"># Box size needs to be [-L,L] or [0,L]</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0e-3</span>   <span class="c1"># Precision parameter</span>
+
+<span class="c1"># Define MRA in the box [-L,L]^3</span>
+<span class="n">MRA1</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">MultiResolutionAnalysis</span><span class="p">(</span><span class="n">box</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">L</span><span class="p">,</span><span class="n">L</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">MRA1</span><span class="p">)</span>
+
+<span class="c1"># Define MRA in the box [0,L]^3</span>
+<span class="n">MRA2</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">MultiResolutionAnalysis</span><span class="p">(</span><span class="n">box</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">L</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">MRA2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="function-projection">
+<h2>Function projection<a class="headerlink" href="#function-projection" title="Permalink to this heading">#</a></h2>
+<p>In order to represent functions in the multiwavelet basis we define a <code class="docutils literal notranslate"><span class="pre">ScalingProjector</span></code> on the MRA. The projector can either be given a fixed uniform <code class="docutils literal notranslate"><span class="pre">scale</span></code> or an adaptive <code class="docutils literal notranslate"><span class="pre">prec</span></code> parameter.</p>
+<section id="example-fixed-scale-projection-1d">
+<h3>Example: Fixed scale projection 1D<a class="headerlink" href="#example-fixed-scale-projection-1d" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vampyr</span> <span class="kn">import</span> <span class="n">vampyr1d</span> <span class="k">as</span> <span class="n">vp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Polynomial order</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Box size [-L,L]</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Scale parameter for uniform projection 2^-n</span>
+
+<span class="c1"># Define fixed scale projector onto MRA</span>
+<span class="n">MRA</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">MultiResolutionAnalysis</span><span class="p">(</span><span class="n">box</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">L</span><span class="p">,</span><span class="n">L</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+<span class="n">P_n</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">ScalingProjector</span><span class="p">(</span><span class="n">MRA</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Define analytic function</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># r is a coordinate vector, even in 1D</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">8</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Project function onto MRA</span>
+<span class="n">f_n</span> <span class="o">=</span> <span class="n">P_n</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="c1"># Plot function in the interval x=[-L,L]</span>
+<span class="n">r_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">L</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">plt_ana</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="p">([</span><span class="n">x</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">r_x</span><span class="p">]</span>
+<span class="n">plt_mra</span> <span class="o">=</span> <span class="p">[</span><span class="n">f_n</span><span class="p">([</span><span class="n">x</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">r_x</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">plt_ana</span><span class="p">,</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span> <span class="c1"># analytic function</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">plt_mra</span><span class="p">,</span> <span class="s2">&quot;tab:red&quot;</span><span class="p">)</span>  <span class="c1"># projected function</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="example-adaptive-projection-3d">
+<h3>Example: Adaptive projection 3D<a class="headerlink" href="#example-adaptive-projection-3d" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vampyr</span> <span class="kn">import</span> <span class="n">vampyr3d</span> <span class="k">as</span> <span class="n">vp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>               <span class="c1"># Polynomial order</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">2</span>               <span class="c1"># Box size [0,L]</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0e-3</span>    <span class="c1"># Precision parameter</span>
+
+<span class="c1"># Define adaptive projector onto MRA</span>
+<span class="n">MRA</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">MultiResolutionAnalysis</span><span class="p">(</span><span class="n">box</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">L</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+<span class="n">P_eps</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">ScalingProjector</span><span class="p">(</span><span class="n">MRA</span><span class="p">,</span> <span class="n">prec</span><span class="o">=</span><span class="n">epsilon</span><span class="p">)</span>
+
+<span class="c1"># Define analytic function</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">R</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">R</span><span class="p">)</span>
+
+<span class="c1"># Project function onto MRA</span>
+<span class="n">f_eps</span> <span class="o">=</span> <span class="n">P_eps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="c1"># Plot function in the interval x=[0,L]</span>
+<span class="n">r_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">plt_ana</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">r_x</span><span class="p">]</span>
+<span class="n">plt_mra</span> <span class="o">=</span> <span class="p">[</span><span class="n">f_eps</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">r_x</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">plt_ana</span><span class="p">,</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span> <span class="c1"># analytic function</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">plt_mra</span><span class="p">,</span> <span class="s2">&quot;tab:red&quot;</span><span class="p">)</span>  <span class="c1"># projected function</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="arithmethic-operations">
+<h2>Arithmethic operations<a class="headerlink" href="#arithmethic-operations" title="Permalink to this heading">#</a></h2>
+<p>Arithmethic in vampyr is mostly the same as in normal python. First we define two functions to be used in the following examples.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vampyr</span> <span class="kn">import</span> <span class="n">vampyr1d</span> <span class="k">as</span> <span class="n">vp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">5</span>               <span class="c1"># Polynomial order</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">4</span>               <span class="c1"># Box size [-L,L]</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0e-3</span>    <span class="c1"># Precision parameter</span>
+
+<span class="c1"># Prepare simple plotting function for visualizations</span>
+<span class="k">def</span> <span class="nf">line_plot_1d</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+    <span class="n">r_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">L</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="n">plt_f</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="p">([</span><span class="n">x</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">r_x</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">plt_f</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">plt</span>
+
+<span class="c1"># Define fixed scale projector onto MRA</span>
+<span class="n">MRA</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">MultiResolutionAnalysis</span><span class="p">(</span><span class="n">box</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">L</span><span class="p">,</span><span class="n">L</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+<span class="n">P_eps</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">ScalingProjector</span><span class="p">(</span><span class="n">MRA</span><span class="p">,</span> <span class="n">prec</span><span class="o">=</span><span class="n">epsilon</span><span class="p">)</span>
+
+<span class="c1"># Project analytic functions onto MRA</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">P_eps</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">P_eps</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># Plot functions</span>
+<span class="n">plt</span> <span class="o">=</span> <span class="n">line_plot_1d</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span>
+<span class="n">plt</span> <span class="o">=</span> <span class="n">line_plot_1d</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="s2">&quot;tab:red&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="example-scaling-and-normalization">
+<h3>Example: scaling and normalization<a class="headerlink" href="#example-scaling-and-normalization" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>    <span class="c1"># Scale f by factor pi</span>
+<span class="n">g</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span> <span class="c1"># Normalize g</span>
+
+<span class="c1"># Plot functions</span>
+<span class="n">plt</span> <span class="o">=</span> <span class="n">line_plot_1d</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span>
+<span class="n">plt</span> <span class="o">=</span> <span class="n">line_plot_1d</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="s2">&quot;tab:red&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="example-addition-and-multiplication">
+<h3>Example: addition and multiplication<a class="headerlink" href="#example-addition-and-multiplication" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h1</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">f</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">g</span>  <span class="c1"># linear combination</span>
+<span class="n">h2</span> <span class="o">=</span> <span class="n">f</span> <span class="o">*</span> <span class="n">g</span>        <span class="c1"># multiplication</span>
+<span class="n">h3</span> <span class="o">=</span> <span class="n">g</span><span class="o">**</span><span class="mi">2</span>         <span class="c1"># power</span>
+
+<span class="c1"># Plot functions</span>
+<span class="n">plt</span> <span class="o">=</span> <span class="n">line_plot_1d</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span>
+<span class="n">plt</span> <span class="o">=</span> <span class="n">line_plot_1d</span><span class="p">(</span><span class="n">h2</span><span class="p">,</span> <span class="s2">&quot;tab:red&quot;</span><span class="p">)</span>
+<span class="n">plt</span> <span class="o">=</span> <span class="n">line_plot_1d</span><span class="p">(</span><span class="n">h3</span><span class="p">,</span> <span class="s2">&quot;tab:green&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="example-norms-integrals-and-dot-products">
+<h3>Example: norms, integrals and dot products<a class="headerlink" href="#example-norms-integrals-and-dot-products" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f_norm</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>
+<span class="n">f_sqnorm</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">squaredNorm</span><span class="p">()</span>
+<span class="n">f_integral</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">integrate</span><span class="p">()</span>
+<span class="n">f2_integral</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">integrate</span><span class="p">()</span>
+<span class="n">f_dot_f</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+<span class="n">f_dot_g</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Norm of f         : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f_norm</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Squared norm of f : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f_sqnorm</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Integral of f     : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f_integral</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Integral of f**2  : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f2_integral</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dot product &lt;f|f&gt; : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f_dot_f</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dot product &lt;f|g&gt; : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f_dot_g</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="operators">
+<h2>Operators<a class="headerlink" href="#operators" title="Permalink to this heading">#</a></h2>
+<section id="example-convolution-operator">
+<h3>Example: convolution operator<a class="headerlink" href="#example-convolution-operator" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vampyr</span> <span class="kn">import</span> <span class="n">vampyr3d</span> <span class="k">as</span> <span class="n">vp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">5</span>               <span class="c1"># Polynomial order</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">10</span>              <span class="c1"># Box size [-L,L]</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0e-3</span>    <span class="c1"># Precision parameter</span>
+
+<span class="c1"># Prepare simple plotting function for visualizations</span>
+<span class="k">def</span> <span class="nf">line_plot_3d</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+    <span class="n">r_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">L</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="n">plt_f</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">r_x</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">plt_f</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">plt</span>
+
+<span class="c1"># Define fixed scale projector onto MRA</span>
+<span class="n">MRA</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">MultiResolutionAnalysis</span><span class="p">(</span><span class="n">box</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">L</span><span class="p">,</span><span class="n">L</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+<span class="n">P_eps</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">ScalingProjector</span><span class="p">(</span><span class="n">MRA</span><span class="p">,</span> <span class="n">prec</span><span class="o">=</span><span class="n">epsilon</span><span class="p">)</span>
+
+<span class="c1"># Project analytic functions onto MRA</span>
+<span class="n">rho</span> <span class="o">=</span> <span class="n">P_eps</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
+
+<span class="c1"># Construct and apply Poisson operator</span>
+<span class="n">poisson</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">PoissonOperator</span><span class="p">(</span><span class="n">MRA</span><span class="p">,</span> <span class="n">prec</span><span class="o">=</span><span class="n">epsilon</span><span class="p">)</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">poisson</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">rho</span><span class="p">)</span>
+
+<span class="c1"># Compute electrostatic energy</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">rho</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Electrostatic energy : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">E</span><span class="p">))</span>
+
+<span class="c1"># Plot functions</span>
+<span class="n">plt</span> <span class="o">=</span> <span class="n">line_plot_3d</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span>
+<span class="n">plt</span> <span class="o">=</span> <span class="n">line_plot_3d</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="s2">&quot;tab:red&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="example-derivative-operator">
+<h3>Example: derivative operator<a class="headerlink" href="#example-derivative-operator" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vampyr</span> <span class="kn">import</span> <span class="n">vampyr1d</span> <span class="k">as</span> <span class="n">vp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">5</span>               <span class="c1"># Polynomial order</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">4</span>              <span class="c1"># Box size [-L,L]</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0e-3</span>    <span class="c1"># Precision parameter</span>
+
+<span class="c1"># Prepare simple plotting function for visualizations</span>
+<span class="k">def</span> <span class="nf">line_plot_1d</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+    <span class="n">r_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">L</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="n">plt_f</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="p">([</span><span class="n">x</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">r_x</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">plt_f</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">plt</span>
+
+<span class="c1"># Define fixed scale projector onto MRA</span>
+<span class="n">MRA</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">MultiResolutionAnalysis</span><span class="p">(</span><span class="n">box</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">L</span><span class="p">,</span><span class="n">L</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+<span class="n">P_eps</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">ScalingProjector</span><span class="p">(</span><span class="n">MRA</span><span class="p">,</span> <span class="n">prec</span><span class="o">=</span><span class="n">epsilon</span><span class="p">)</span>
+
+<span class="c1"># Project analytic functions onto MRA</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">P_eps</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># Construct and apply derivative operator. ABGV comes from the authors</span>
+<span class="c1"># of the paper (Alpert, Beylkin, Gines, Vozovoi) and a,b are the</span>
+<span class="c1"># boundary parameters from the same paper </span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">ABGVDerivative</span><span class="p">(</span><span class="n">MRA</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Compute first and second derivative</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">D</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">ddf</span> <span class="o">=</span> <span class="n">D</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="c1"># Plot functions</span>
+<span class="n">plt</span> <span class="o">=</span> <span class="n">line_plot_1d</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span>
+<span class="n">plt</span> <span class="o">=</span> <span class="n">line_plot_1d</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">&quot;tab:red&quot;</span><span class="p">)</span>
+<span class="n">plt</span> <span class="o">=</span> <span class="n">line_plot_1d</span><span class="p">(</span><span class="n">ddf</span><span class="p">,</span> <span class="s2">&quot;tab:green&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../setup/"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Setting up your system</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../vampyr-scf/"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">V2: SCF optimization with VAMPyR</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prologue">Prologue</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiresolution-analysis-mra">MultiResolution Analysis (MRA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-projection">Function projection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-fixed-scale-projection-1d">Example: Fixed scale projection 1D</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-adaptive-projection-3d">Example: Adaptive projection 3D</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arithmethic-operations">Arithmethic operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-scaling-and-normalization">Example: scaling and normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-addition-and-multiplication">Example: addition and multiplication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-norms-integrals-and-dot-products">Example: norms, integrals and dot products</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operators">Operators</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-convolution-operator">Example: convolution operator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-derivative-operator">Example: derivative operator</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, The contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

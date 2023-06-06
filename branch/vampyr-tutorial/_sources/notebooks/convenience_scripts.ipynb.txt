@@ -1,0 +1,271 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "26d3e51e-47bb-4a91-b613-8d54a4e63d9b",
+   "metadata": {},
+   "source": [
+    "# Convenience scripts\n",
+    "This notebook gives some help on the convenience functions to be used in the exercises."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "e35831df-27e9-4003-83e4-7f33e7f6760a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from utils.functions import MRChemOutput, makeEnergyInput, makeNMRInput, submit"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "41eaae6a-54f9-43a1-8176-9abbc4bf892c",
+   "metadata": {},
+   "source": [
+    "## Output parser\n",
+    "\n",
+    "`MRChemOutput` is a convenience class for parsing JSON output files.\n",
+    " It contains methods for accessing the relevant properties for the exercises.\n",
+    " \n",
+    " You initialize the class by passing in the path to the JSON output file."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "13e4b7d6-bfbf-40c7-a4c8-bb32d9711d77",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Help on class MRChemOutput in module utils.functions:\n",
+      "\n",
+      "class MRChemOutput(builtins.object)\n",
+      " |  MRChemOutput(jsonfile)\n",
+      " |  \n",
+      " |  Convenience class for accessing data from an MRChem calculation.\n",
+      " |  \n",
+      " |  You can access the JSON data via the data attribute.\n",
+      " |  For example, to get the final SCF total energy:\n",
+      " |  \n",
+      " |  \n",
+      " |  []: calc = MRChemOutput('jobname.json')\n",
+      " |      E_tot = calc.data['output']['properties']['scf_energy']['E_tot']\n",
+      " |  \n",
+      " |  Additionally, the JSON is loaded as a nested SimpleNamespace\n",
+      " |  (stored in the ns attribute),\n",
+      " |  and you can quickly navigate the dict by 'dotting' through\n",
+      " |  the keys. Tab completion should work for this in the Jupyter\n",
+      " |  environment:\n",
+      " |  \n",
+      " |  []: E_tot = calc.ns.output.properties.scf_energy.E_tot\n",
+      " |  \n",
+      " |  Known bug\n",
+      " |  Some keys are not valid Python variable names,\n",
+      " |  and you cannot access the levels below these keys by dotting.\n",
+      " |  Workaround: use __.getattribute__(key) to access such keys.\n",
+      " |  \n",
+      " |  A few methods are also provided that serve as shortcuts\n",
+      " |  for navigating the data dictionary, and for plotting\n",
+      " |  SCF convergence data.\n",
+      " |  \n",
+      " |  Methods defined here:\n",
+      " |  \n",
+      " |  __init__(self, jsonfile)\n",
+      " |      Parameters:\n",
+      " |      jsonfile <str>: Path to MRChem output JSON file\n",
+      " |  \n",
+      " |  getFinalSCFEnergy(self) -> float\n",
+      " |      Return optimized SCF energy in Hartrees.\n",
+      " |  \n",
+      " |  getNMRShieldingAnisotropy(self) -> dict\n",
+      " |      Return anisotropy of the diagonalized NMR shielding tensor.\n",
+      " |  \n",
+      " |  getNMRShieldingIsotropicAverage(self) -> dict\n",
+      " |      Return isotropic average of total NMR shielding tensor.\n",
+      " |  \n",
+      " |  getNMRShieldingTensors(self) -> dict\n",
+      " |      Return total NMR shielding tensor.\n",
+      " |  \n",
+      " |  getNMRShieldingTensorsDiagonalized(self) -> dict\n",
+      " |      Return diagonalized total NMR shielding tensor.\n",
+      " |  \n",
+      " |  getNMRShieldingTensorsDiamagnetic(self) -> dict\n",
+      " |      Return diamagnetic contribution to NMR shielding tensor.\n",
+      " |  \n",
+      " |  getNMRShieldingTensorsParamagnetic(self) -> dict\n",
+      " |      Return paramagnetic contribution to NMR shielding tensor.\n",
+      " |  \n",
+      " |  getResponseConvergence(self) -> list\n",
+      " |      Return convergence data for the x, y, and z dimension response SCFs.\n",
+      " |  \n",
+      " |  getSCFConvergence(self) -> list\n",
+      " |      Return list of tuples containing total energy, energy update, and MO residuals\n",
+      " |      for all SCF iterations.\n",
+      " |  \n",
+      " |  getWalltime(self)\n",
+      " |  \n",
+      " |  normalTermination(self)\n",
+      " |  \n",
+      " |  plotResponseConvergence(self)\n",
+      " |      Plot the response SCF convergence in terms of the property, property update, and MO residual.\n",
+      " |  \n",
+      " |  plotSCFConvergence(self)\n",
+      " |      Plot the SCF convergence in terms of total energy, energy udpates, and MO residuals.\n",
+      " |  \n",
+      " |  ----------------------------------------------------------------------\n",
+      " |  Data descriptors defined here:\n",
+      " |  \n",
+      " |  __dict__\n",
+      " |      dictionary for instance variables (if defined)\n",
+      " |  \n",
+      " |  __weakref__\n",
+      " |      list of weak references to the object (if defined)\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "help(MRChemOutput)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f92ffac6-9dc3-48f8-bcc3-cc2f67e1122e",
+   "metadata": {},
+   "source": [
+    "## Make input files\n",
+    "\n",
+    "`makeEnergyInput` generates an MRChem input file in the current directory, with a precision and the filename as specified."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "449f046b-d01f-462c-bc6d-0443a703d02f",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Help on function makeEnergyInput in module utils.functions:\n",
+      "\n",
+      "makeEnergyInput(world_prec=None, xyzfile=None, fname=None)\n",
+      "    Write MRChem JSON input file for energy calculation.\n",
+      "    \n",
+      "    Parameters:\n",
+      "    -------------\n",
+      "    \n",
+      "    world_prec: precision to use\n",
+      "    xyzfile: path to xyzfile\n",
+      "    fname: name of the generated input file (without extension, .inp assumed)\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "help(makeEnergyInput)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "3094e63b-ab0d-425e-a601-2a7d9c64c148",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Help on function makeNMRInput in module utils.functions:\n",
+      "\n",
+      "makeNMRInput(world_prec=None, xyzfile=None, fname=None)\n",
+      "    Write MRChem JSON input file for NMR calculation.\n",
+      "    \n",
+      "    Parameters:\n",
+      "    -------------\n",
+      "    \n",
+      "    world_prec: precision to use\n",
+      "    xyzfile: path to xyzfile\n",
+      "    fname: name of the generated input file (without extension, .inp assumed)\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "help(makeNMRInput)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9e4cceec-c95a-410c-8258-8d5f2b17f1a2",
+   "metadata": {},
+   "source": [
+    "## Submit MRChem job\n",
+    "\n",
+    "`submit` makes makes a calc dir `<inputfile>_calc`, moves the input file to this directory, and calls MRChem."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "dfd55bbe-1aca-4f33-8c32-acfedbab15dc",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Help on function submit in module utils.functions:\n",
+      "\n",
+      "submit(nprocs=None, inputfile=None)\n",
+      "    Make calc dir, move inputfile, and start the calculation.\n",
+      "    \n",
+      "    Parameters:\n",
+      "    -----------\n",
+      "    nprocs      : Number of OpenMP threads to use\n",
+      "    inputfile   : Name of input file (without extension)\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "help(submit)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6a4e53f0-023b-45b5-bfa2-38e3e686777b",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

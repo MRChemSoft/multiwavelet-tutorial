@@ -1,0 +1,807 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>V2: SCF optimization with VAMPyR</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_lesson.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/minipres.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="M1: Energies with MRChem" href="../mrchem-laptop-1/" />
+    <link rel="prev" title="V1: VAMPyR introduction" href="../vampyr-intro/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search/"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/hylleraas-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/hylleraas-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../">
+                    Multiwavelet tutorial
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../setup/">Setting up your system</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercises</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../vampyr-intro/">V1: VAMPyR introduction</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">V2: SCF optimization with VAMPyR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mrchem-laptop-1/">M1: Energies with MRChem</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../mrchem-laptop-2/">M2: Properties with MRChem</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../mrchem-hpc/">M3: MRChem on HPC cluster</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/MRChemSoft/multiwavelet-tutorial/master?urlpath=lab/tree/content/notebooks/vampyr-scf.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/MRChemSoft/multiwavelet-tutorial" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MRChemSoft/multiwavelet-tutorial/edit/master/content/notebooks/vampyr-scf.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MRChemSoft/multiwavelet-tutorial/issues/new?title=Issue%20on%20page%20%2Fnotebooks/vampyr-scf.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/vampyr-scf.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>V2: SCF optimization with VAMPyR</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hydrogen-atom">Hydrogen atom</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-using-multiwavelets">Solution using multiwavelets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-in-vampyr">Implementation in VAMPyR</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-the-notebook">Preparing the notebook</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initializing-the-multi-resolution-analysis-mra">Initializing the Multi-Resolution Analysis (MRA)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nuclear-potential">Nuclear potential</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-guess-for-wavefunction">Initial guess for wavefunction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bound-state-helmholtz-operator">Bound-State Helmholtz operator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterative-solution-of-the-schrodinger-equation">Iterative solution of the Schrödinger equation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extension-to-helium">Extension to Helium</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pen-and-paper-exercise">Pen and paper exercise:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-exercise">Implementation exercise:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-exercise">Bonus exercise:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="v2-scf-optimization-with-vampyr">
+<h1>V2: SCF optimization with VAMPyR<a class="headerlink" href="#v2-scf-optimization-with-vampyr" title="Permalink to this heading">#</a></h1>
+<section id="hydrogen-atom">
+<h2>Hydrogen atom<a class="headerlink" href="#hydrogen-atom" title="Permalink to this heading">#</a></h2>
+<p>We intend to solve the Schrödinger equation for the Hydrogen atom</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  \left[\hat{T} + \hat{V}\right]\phi = E\phi
+\end{equation*}\]</div>
+<p>where the potential operator contains only the nuclear attraction</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+  \hat{V}(r) = \frac{-Z}{|R-r|}
+\end{equation*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(Z=1\)</span> and <span class="math notranslate nohighlight">\(R=(0,0,0)\)</span> are the nuclear charge and position, respectively.</p>
+<section id="solution-using-multiwavelets">
+<h3>Solution using multiwavelets<a class="headerlink" href="#solution-using-multiwavelets" title="Permalink to this heading">#</a></h3>
+<p>In order to solve this equation using multiwavelets we reformulate it in an integral form:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-65e04d76-0f52-4f9c-9613-a5959e964d2c">
+<span class="eqno">(1)<a class="headerlink" href="#equation-65e04d76-0f52-4f9c-9613-a5959e964d2c" title="Permalink to this equation">#</a></span>\[\begin{equation}
+  \phi = -2\hat{G}_{\mu}\hat{V}\phi
+\end{equation}\]</div>
+<p>and iterate until convergence. <span class="math notranslate nohighlight">\(\hat{G}_\mu\)</span> is the Bound-State Helmholtz (BSH) integral operator, whose kernel is defined as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-7346ebc9-dd20-4fba-8d62-f8aad52686c5">
+<span class="eqno">(2)<a class="headerlink" href="#equation-7346ebc9-dd20-4fba-8d62-f8aad52686c5" title="Permalink to this equation">#</a></span>\[\begin{equation}
+  G_\mu(r - r') = \frac{\exp(-\mu |r - r'|)}{4\pi |r - r'|}
+\end{equation}\]</div>
+<p>and <span class="math notranslate nohighlight">\(\mu=\sqrt{-2E}\)</span> takes the place of the energy in the original Schrödinger equation. For the Hydrogen atom this energy is known (E=-0.5 a.u.) so we can use the “exact” BSH operator when solving for the wavefunction, but in general the energy will have to be computed for each iteration and the BSH operator re-initialized with the updated <span class="math notranslate nohighlight">\(\mu\)</span> parameter. For simple systems with a handful of electrons, the straightforward power iteration of the BSH equation is sufficient to achieve convergence, but more complicated molecular systems require additional acceleration techniques (not discussed further).</p>
+</section>
+<section id="implementation-in-vampyr">
+<h3>Implementation in VAMPyR<a class="headerlink" href="#implementation-in-vampyr" title="Permalink to this heading">#</a></h3>
+<p>What we need for this exercise is:</p>
+<ol class="arabic simple">
+<li><p>Define a suitable Multi-Resolution Analysis (MRA) for the problem</p></li>
+<li><p>Make analytic nuclear potential and project onto the MRA</p></li>
+<li><p>Make analytic initial guess for the orbital and project onto the MRA</p></li>
+<li><p>Create a Helmholtz operator <span class="math notranslate nohighlight">\(\hat{G}\)</span> using the exact value for the Hydrogen atom (<span class="math notranslate nohighlight">\(\mu=\sqrt{-2E}\)</span>, <span class="math notranslate nohighlight">\(E=-0.5 a.u.\)</span>)</p></li>
+<li><p>Compute new orbital through application of the Helmholtz operator
+<span class="math notranslate nohighlight">\(\tilde{\phi}^{n+1} = -2\hat{G}\left[\hat{V}\phi^n\right]\)</span></p></li>
+<li><p>Check for convergence by computing the norm of the orbital update <span class="math notranslate nohighlight">\(\Delta\phi^n = \tilde{\phi}^{n+1} - \phi^n\)</span></p></li>
+<li><p>Normalize the orbital <span class="math notranslate nohighlight">\(\phi^{n+1} = \tilde{\phi}^{n+1}/||\tilde{\phi}^{n+1}||\)</span></p></li>
+<li><p>Update orbital <span class="math notranslate nohighlight">\(\phi^{n} \leftarrow \phi^{n+1}\)</span> for next iteration</p></li>
+<li><p>Repeat steps 5-8 until your orbital has converged</p></li>
+</ol>
+</section>
+<section id="preparing-the-notebook">
+<h3>Preparing the notebook<a class="headerlink" href="#preparing-the-notebook" title="Permalink to this heading">#</a></h3>
+<p>First we load all necessary Python modules for this exercise, and define a helper function for plotting that will be used later.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vampyr</span> <span class="kn">import</span> <span class="n">vampyr3d</span> <span class="k">as</span> <span class="n">vp</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Prepare simple plotting function for visualizations</span>
+<span class="k">def</span> <span class="nf">line_plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">):</span>
+    <span class="c1"># Evenly spaced points along the x-axis</span>
+    <span class="n">r_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">r_x</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="initializing-the-multi-resolution-analysis-mra">
+<h3>Initializing the Multi-Resolution Analysis (MRA)<a class="headerlink" href="#initializing-the-multi-resolution-analysis-mra" title="Permalink to this heading">#</a></h3>
+<p>We need to define a computational world that is large enough for the expected solution to vanish at the boundary. For the Hydrogen atom in atomic units, a cubic box of <span class="math notranslate nohighlight">\(\pm 20\)</span> bohrs in each dimension should be sufficient. Initially we choose a low precision of <span class="math notranslate nohighlight">\(\epsilon = 10^{-3}\)</span>, but this can be increased later when we know that the algorithm is working. For this precision a suitable polynomial order is around <span class="math notranslate nohighlight">\(k=5\)</span>, but this should be increased gradually when the precision is increased.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Global parameters</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">5</span>                        <span class="c1"># Polynomial order</span>
+<span class="n">L</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">]</span>                 <span class="c1"># Simulation box size</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0e-3</span>             <span class="c1"># Relative precision</span>
+
+<span class="c1"># Define MRA and multiwavelet projector</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FIXME: construct a MRA using polynomial order &#39;k&#39; and box size &#39;L&#39;&quot;</span><span class="p">)</span>
+<span class="c1"># MRA = ...</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FIXME: construct a ScalingProjector &#39;P_mra&#39; for the MRA with precision &#39;epsilon&#39;&quot;</span><span class="p">)</span>
+<span class="c1"># P_mra = ...</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="nuclear-potential">
+<h3>Nuclear potential<a class="headerlink" href="#nuclear-potential" title="Permalink to this heading">#</a></h3>
+<p>By placing the nucleus at the origin, the nuclear potential for Hydrogen (Z=1) reduces to <span class="math notranslate nohighlight">\(\hat{V}(r) = -1/|r|\)</span>. In order to make a numerical MW representation of this potential we must first define an analytic function that takes a position coordinate <span class="math notranslate nohighlight">\(r[3]\)</span> and returns a scalar function value for that point. Once we have a Python function for this we can project it onto the MRA using the scaling projector. We can then plot the function to make sure it looks reasonable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Analytic nuclear potential (the argument r is a 3D coordinate)</span>
+<span class="k">def</span> <span class="nf">f_nuc</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">Z</span> <span class="o">/</span> <span class="n">R</span>
+    
+<span class="c1"># Project nuclear potential onto MRA</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FIXME: construct a MW representation &#39;V_nuc&#39; of the analytic function &#39;f_nuc&#39; using the &#39;P_mra&#39; projector&quot;</span><span class="p">)</span>
+<span class="c1"># V_nuc = ...</span>
+
+<span class="c1"># Uncomment the following to plot function between x=[-1.0, 1.0]</span>
+<span class="c1"># plt = line_plot(V_nuc, -1.0, 1.0)</span>
+<span class="c1"># plt.show()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="initial-guess-for-wavefunction">
+<h3>Initial guess for wavefunction<a class="headerlink" href="#initial-guess-for-wavefunction" title="Permalink to this heading">#</a></h3>
+<p>In order to start the iteration process, we need an initial guess for the wavefunction solution. We choose a simple Gaussian function <span class="math notranslate nohighlight">\(\phi^0(r) = e^{-r^2}\)</span> centered at the origin, and project it in the same way as the nuclear potential above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Analytic initial guess (the argument r is a 3D coordinate)</span>
+<span class="k">def</span> <span class="nf">f_phi</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FIXME: return the function value of the initial guess, e.g. exp(-r^2)&quot;</span><span class="p">)</span>
+    
+<span class="c1"># Project initial guess onto MRA and normalize</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FIXME: construct a MW representation &#39;phi_n&#39; of the analytic function &#39;f_phi&#39; using the &#39;P_mra&#39; projector&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FIXME: normalize the resulting orbital using &#39;phi_n.normalize()&#39;&quot;</span><span class="p">)</span>
+<span class="c1"># phi_n = ...</span>
+
+
+<span class="c1"># Uncomment the following to plot function between x=[-10.0, 10.0]</span>
+<span class="c1"># plt = line_plot(phi_n, -10.0, 10.0)</span>
+<span class="c1"># plt.show()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="bound-state-helmholtz-operator">
+<h3>Bound-State Helmholtz operator<a class="headerlink" href="#bound-state-helmholtz-operator" title="Permalink to this heading">#</a></h3>
+<p>The BSH operator is implemented in VAMPyR, and you can construct it using any real-valued <span class="math notranslate nohighlight">\(\mu\)</span>, along with the appropriate MRA and precision <span class="math notranslate nohighlight">\(\epsilon\)</span>. Since we know the exact energy for the Hydrogen atom, we can construct a single operator and use it throughout the iteration procedure.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Prepare Helmholtz operator using exact energy</span>
+<span class="n">E</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">E</span><span class="p">)</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">HelmholtzOperator</span><span class="p">(</span><span class="n">MRA</span><span class="p">,</span> <span class="n">exp</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">prec</span><span class="o">=</span><span class="n">epsilon</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="iterative-solution-of-the-schrodinger-equation">
+<h3>Iterative solution of the Schrödinger equation<a class="headerlink" href="#iterative-solution-of-the-schrodinger-equation" title="Permalink to this heading">#</a></h3>
+<p>We now have all the componenents needed for the power iteration that will optimize the wavefunction solution. In the loop we need to</p>
+<ol class="arabic simple">
+<li><p>Assemble Helmholtz argument : <span class="math notranslate nohighlight">\(V_{nuc}*\phi^n\)</span></p></li>
+<li><p>Apply BSH operator : <span class="math notranslate nohighlight">\(\tilde{\phi}^{n+1} = -2 \hat{G}\left[V_{nuc}*\phi^n\right]\)</span></p></li>
+<li><p>Compute norm of new orbital : <span class="math notranslate nohighlight">\(||\tilde{\phi}^{n+1}||\)</span></p></li>
+<li><p>Compute norm of update : <span class="math notranslate nohighlight">\(||\Delta\tilde{\phi}^n|| = ||\tilde{\phi}^{n+1} - \phi^n||\)</span></p></li>
+<li><p>Normalize wavefunction : <span class="math notranslate nohighlight">\(\phi^{n+1} = \tilde{\phi}^{n+1}/||\tilde{\phi}^{n+1}||\)</span></p></li>
+<li><p>Prepare for next iteration : <span class="math notranslate nohighlight">\(\phi^n \leftarrow \phi^{n+1}\)</span></p></li>
+<li><p>Repeat until : <span class="math notranslate nohighlight">\(||\Delta\tilde{\phi}^n|| &lt; \epsilon_{thrs}\)</span></p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>            <span class="c1"># Iteration counter</span>
+<span class="n">thrs</span> <span class="o">=</span> <span class="mf">1.0e-3</span>    <span class="c1"># Convergence threshold</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="mf">1.0</span>       <span class="c1"># Dummy norm</span>
+<span class="n">update</span> <span class="o">=</span> <span class="mf">1.0</span>     <span class="c1"># Dummy update</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="c1"># Main optimization loop</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FIXME: assemble Helmholtz argument&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FIXME: apply BSH operator to obtain next iteration &#39;phi_np1&#39;&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FIXME: compute the norm of new orbital : norm = ||phi_np1||&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FIXME: compute the norm of update : update = ||phi_np1 - phi_n||&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FIXME: use the &#39;line_plot&#39; function to visualize the orbitals&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FIXME: switch to (update &lt; thrs) convergence check once the body of the loop is working&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Print the current convergence status</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;iteration: </span><span class="si">{}</span><span class="s2">    Norm: </span><span class="si">{}</span><span class="s2">   Update: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">norm</span><span class="p">,</span> <span class="n">update</span><span class="p">))</span>
+    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="extension-to-helium">
+<h2>Extension to Helium<a class="headerlink" href="#extension-to-helium" title="Permalink to this heading">#</a></h2>
+<p>A few things change when you go from Hydrogen to Helium:</p>
+<ol class="arabic simple">
+<li><p>The energy is no longer known exactly, and thus will have to be computed from the wavefunction</p></li>
+<li><p>The Helmholtz operator which depends on the energy through <span class="math notranslate nohighlight">\(\mu = \sqrt{-2E}\)</span> needs to be updated in every iteration</p></li>
+<li><p>The potential operator <span class="math notranslate nohighlight">\(V\)</span> depends on the wavefunction and must be updated in every iteration</p></li>
+</ol>
+<p>In this example we will use the Hartree-Fock model, which for a single-orbital system like Helium, reduces to the following potential operator:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-7b588ffc-17cb-46d1-8067-8e8215c88283">
+<span class="eqno">(3)<a class="headerlink" href="#equation-7b588ffc-17cb-46d1-8067-8e8215c88283" title="Permalink to this equation">#</a></span>\[\begin{align}
+  \hat{V} &amp;= \hat{V}_{nuc} + 2\hat{J} - \hat{K}\\
+          &amp;= \hat{V}_{nuc} + \hat{J}
+\end{align}\]</div>
+<p>since <span class="math notranslate nohighlight">\(\hat{K} = \hat{J}\)</span> for a doubly occupied single orbital.</p>
+<p>The Coulomb potential <span class="math notranslate nohighlight">\(\hat{J}\)</span> can be computed by application of the Poisson operator <span class="math notranslate nohighlight">\(P\)</span>:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-9507a5fb-e8b5-47fe-a8ba-be33d5dd76d3">
+<span class="eqno">(4)<a class="headerlink" href="#equation-9507a5fb-e8b5-47fe-a8ba-be33d5dd76d3" title="Permalink to this equation">#</a></span>\[\begin{equation}
+  \hat{J}(r) = P\left[4\pi\rho\right]
+\end{equation}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(\rho\)</span> is the square of the orbital</p>
+<div class="amsmath math notranslate nohighlight" id="equation-5fb6cd50-9ffb-4e36-b355-d5d960d48eb8">
+<span class="eqno">(5)<a class="headerlink" href="#equation-5fb6cd50-9ffb-4e36-b355-d5d960d48eb8" title="Permalink to this equation">#</a></span>\[\begin{equation}
+  \rho = \phi*\phi
+\end{equation}\]</div>
+<section id="pen-and-paper-exercise">
+<h3>Pen and paper exercise:<a class="headerlink" href="#pen-and-paper-exercise" title="Permalink to this heading">#</a></h3>
+<p>Use the fact that</p>
+<div class="amsmath math notranslate nohighlight" id="equation-f4a46b4d-566d-4a84-bc8a-41e8adfaa5fc">
+<span class="eqno">(6)<a class="headerlink" href="#equation-f4a46b4d-566d-4a84-bc8a-41e8adfaa5fc" title="Permalink to this equation">#</a></span>\[\begin{equation}
+  \tilde{\phi}^{n+1} = -\Big[\hat{T} - E^n\Big]^{-1} V^n\phi^n \end{equation}\]</div>
+<p>to show that</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0dcc8bbe-5255-4401-8333-e03b77eb6732">
+<span class="eqno">(7)<a class="headerlink" href="#equation-0dcc8bbe-5255-4401-8333-e03b77eb6732" title="Permalink to this equation">#</a></span>\[\begin{equation}
+  E^{n+1} = \frac{\langle\tilde{\phi}^{n+1}|\hat{T} +
+            \hat{V}^{n+1}|\tilde{\phi}^{n+1}\rangle}
+            {||\tilde{\phi}^{n+1}||^2}
+\end{equation}\]</div>
+<p>can be written as a pure update <span class="math notranslate nohighlight">\(\Delta E^n\)</span> involving only the potentials <span class="math notranslate nohighlight">\(\hat{V}^{n+1}\)</span>, <span class="math notranslate nohighlight">\(\hat{V}^n\)</span> as well as the orbitals <span class="math notranslate nohighlight">\(\tilde{\phi}^{n+1}\)</span> and <span class="math notranslate nohighlight">\(\phi^n\)</span></p>
+<div class="amsmath math notranslate nohighlight" id="equation-fdc2ede1-a82e-4642-879f-69f1e7127aae">
+<span class="eqno">(8)<a class="headerlink" href="#equation-fdc2ede1-a82e-4642-879f-69f1e7127aae" title="Permalink to this equation">#</a></span>\[\begin{equation}
+  E^{n+1} = E^{n} + \Delta E^n
+\end{equation}\]</div>
+</section>
+<section id="implementation-exercise">
+<h3>Implementation exercise:<a class="headerlink" href="#implementation-exercise" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Make a nuclear potential function <code class="docutils literal notranslate"><span class="pre">f_nuc(r)</span></code> for the Helium atom</p></li>
+<li><p>Make an initial guess for the orbital as a python function <code class="docutils literal notranslate"><span class="pre">f_phi(r)</span></code></p></li>
+<li><p>Project both nuclear potential (<span class="math notranslate nohighlight">\(V_{nuc}\)</span>) and orbital (<span class="math notranslate nohighlight">\(\phi_n\)</span>) to the MW basis using a <code class="docutils literal notranslate"><span class="pre">vp.ScalingProjector</span></code> with precision <span class="math notranslate nohighlight">\(\epsilon=10^{-3}\)</span></p></li>
+<li><p>Create a Helmholtz operator <span class="math notranslate nohighlight">\(G^n\)</span> with <span class="math notranslate nohighlight">\(\mu^n = \sqrt{-2E^n}\)</span> using the current energy (start with some reasonable guess)</p></li>
+<li><p>Compute total potential <span class="math notranslate nohighlight">\(V^n = V_{nuc} + J^n\)</span>, where the Coulomb potential is computed using the <code class="docutils literal notranslate"><span class="pre">vp.PoissonOperator</span></code> on the current squared orbital <span class="math notranslate nohighlight">\(J = P\left[4\pi\phi^2\right]\)</span></p></li>
+<li><p>Compute new orbital through application of the Helmholtz operator on <span class="math notranslate nohighlight">\(\tilde{\phi}^{n+1} = -2\hat{G}^nV^n\phi^n\)</span></p></li>
+<li><p>Compute the update to the orbital energy (<span class="math notranslate nohighlight">\(\Delta E^n\)</span>) using the expression from the pen and paper exercise</p></li>
+<li><p>Compute the norm of the orbital update <span class="math notranslate nohighlight">\(||\Delta\tilde{\phi}^n|| = ||\tilde{\phi}^{n+1} - \phi^n||\)</span></p></li>
+<li><p>Normalize the orbital <span class="math notranslate nohighlight">\(\phi^{n+1} = \tilde{\phi}^{n+1}/||\tilde{\phi}^{n+1}||\)</span></p></li>
+<li><p>Repeat steps 4-9 until your orbital has converged</p></li>
+</ol>
+<p>You should expect the orbital energy to converge towards
+<span class="math notranslate nohighlight">\(E_n \approx -0.918\)</span>.</p>
+</section>
+<section id="bonus-exercise">
+<h3>Bonus exercise:<a class="headerlink" href="#bonus-exercise" title="Permalink to this heading">#</a></h3>
+<p>The total energy can be computed after convergence as
+<span class="math notranslate nohighlight">\(E_{tot} = 2E_n - \langle\rho|J\rangle\)</span>, should be around <span class="math notranslate nohighlight">\(E_{tot} \approx -2.86\)</span>.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../vampyr-intro/"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">V1: VAMPyR introduction</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../mrchem-laptop-1/"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">M1: Energies with MRChem</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hydrogen-atom">Hydrogen atom</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-using-multiwavelets">Solution using multiwavelets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-in-vampyr">Implementation in VAMPyR</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-the-notebook">Preparing the notebook</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initializing-the-multi-resolution-analysis-mra">Initializing the Multi-Resolution Analysis (MRA)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nuclear-potential">Nuclear potential</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-guess-for-wavefunction">Initial guess for wavefunction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bound-state-helmholtz-operator">Bound-State Helmholtz operator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterative-solution-of-the-schrodinger-equation">Iterative solution of the Schrödinger equation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extension-to-helium">Extension to Helium</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pen-and-paper-exercise">Pen and paper exercise:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-exercise">Implementation exercise:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-exercise">Bonus exercise:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, The contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,524 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>V1: Basics of Vampyr</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_lesson.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/minipres.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="V2: The Hydrogen atom" href="../V2-Hydrogen-atom/" />
+    <link rel="prev" title="Setting up your system" href="../../setup/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/hylleraas-logo.png" class="logo" alt="logo">
+      
+      
+    </a>
+</div><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../">
+   Multiwavelet tutorial
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../setup/">
+   Setting up your system
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Exercises
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   V1: Basics of Vampyr
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../V2-Hydrogen-atom/">
+   V2: The Hydrogen atom
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mrchem-laptop-1/">
+   M1: Energies with MRChem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mrchem-laptop-2/">
+   M2: Properties with MRChem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mrchem-hpc/">
+   M3: MRChem on HPC cluster
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/notebooks/V1-Vampyr-intro.ipynb.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/MRChemSoft/multiwavelet-tutorial"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/MRChemSoft/multiwavelet-tutorial/issues/new?title=Issue%20on%20page%20%2Fnotebooks/V1-Vampyr-intro.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/MRChemSoft/multiwavelet-tutorial/edit/master/content/notebooks/V1-Vampyr-intro.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/MRChemSoft/multiwavelet-tutorial/master?urlpath=lab/tree/content/notebooks/V1-Vampyr-intro.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vampyr-prologue">
+   1 Vampyr prologue
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#math-in-vampyr">
+   2 Math in Vampyr
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#projecting-a-function">
+     2.1 Projecting a function
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#arithmethic">
+     2.2 Arithmethic
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#operators">
+   2.3 Operators
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="v1-basics-of-vampyr">
+<h1>V1: Basics of Vampyr<a class="headerlink" href="#v1-basics-of-vampyr" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="vampyr-prologue">
+<h2>1 Vampyr prologue<a class="headerlink" href="#vampyr-prologue" title="Permalink to this headline">¶</a></h2>
+<p>Import the packages like so</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vampyr</span> <span class="kn">import</span> <span class="n">vampyr3d</span> <span class="k">as</span> <span class="n">vp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you want to find out how to use a function, or what we have in the package use the function below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">vp</span><span class="o">.</span><span class="n">ScalingProjector</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In case the help was not enough, ask <strong>us</strong> for help. For this you need only your voice.</p>
+</div>
+<div class="section" id="math-in-vampyr">
+<h2>2 Math in Vampyr<a class="headerlink" href="#math-in-vampyr" title="Permalink to this headline">¶</a></h2>
+<p>The following exercises are introductions in working with functions, application of operators and some equation solving.</p>
+<div class="section" id="projecting-a-function">
+<h3>2.1 Projecting a function<a class="headerlink" href="#projecting-a-function" title="Permalink to this headline">¶</a></h3>
+<p>In this task you will create a function, project it at different precisions and basis orders, and plot it against its projection.
+This is meant to give you understanding in how one can approach completeness in multiwavelets.</p>
+<p>First we start by initializing the multiresolution analysis (mra) by using the following command</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mra</span> <span class="o">=</span> <span class="n">vp</span><span class="o">.</span><span class="n">MultiResolutionAnalysis</span><span class="p">(</span><span class="n">box</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here you will change the <code class="docutils literal notranslate"><span class="pre">order</span></code> value later. This defines the polynomial order of the basis.</p>
+<p>An allowed function for projection in vampyr needs to have a single coordinate argument and it has to output a float value. You will construct a gaussian function defined by
+$<span class="math notranslate nohighlight">\(
+f(\mathbf{r}) = \beta \exp(-\alpha[r_x^2 + r_y^2 + r_z^2])
+\)</span>$
+the alpha value is a measure of how sharp the gaussian function is, and the beta is just a normalization factor, for this exercise you can set it to anything.
+Fill out the following python function for this (hint: you can use <code class="docutils literal notranslate"><span class="pre">np.exp</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+    <span class="c1"># implement your function here</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You should then be able to plot this function by running the next cell</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.99</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="c1"># create an evenly spaced set of points between -0.99 and 0.99</span>
+<span class="n">r_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">r_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="p">[</span><span class="n">r_x</span><span class="p">,</span> <span class="n">r_y</span><span class="p">,</span> <span class="n">r_z</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we want to project this function, the way we do that is by creating a projection operator <code class="docutils literal notranslate"><span class="pre">vp.ScalingProjector</span></code> and apply it on the function. We apply this operator by using the function as a function argument of it, <code class="docutils literal notranslate"><span class="pre">P(f)</span></code> for example.</p>
+<p>Try creating one and project the function you created earlier.</p>
+<p>hint: use the <code class="docutils literal notranslate"><span class="pre">help</span></code> function to fill out the blanks)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### write your code here</span>
+<span class="n">P_eps</span> <span class="o">=</span> 
+
+<span class="n">f_tree</span> <span class="o">=</span>    <span class="c1"># &lt;-- here is where you will put the projected function</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>when you are done you can run the following cell to plot your projected function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f_plt</span> <span class="o">=</span> <span class="p">[</span> <span class="n">f_tree</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">r_x</span> <span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span> <span class="c1"># your function</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">f_plt</span><span class="p">,</span> <span class="s2">&quot;tab:red&quot;</span><span class="p">)</span> <span class="c1"># your projected function</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that you have projected the function, try changing three values, the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> value of your original function, the <code class="docutils literal notranslate"><span class="pre">order</span></code> of the basis and the precision (<code class="docutils literal notranslate"><span class="pre">prec</span></code>) at which you project the function. What you should see is that the sharper the function, the higher order and precision you need to represent it properly.</p>
+<p>One last thing I need to point out before we go to the next exercise is that it is convention to call our projected functions trees, as they all are <code class="docutils literal notranslate"><span class="pre">vp.FunctionTree</span></code> type.</p>
+</div>
+<div class="section" id="arithmethic">
+<h3>2.2 Arithmethic<a class="headerlink" href="#arithmethic" title="Permalink to this headline">¶</a></h3>
+<p>Arithmethic in vampyr is mostly the same as in normal python.
+Lets work with the previous function you created.</p>
+<p>First you can normalize your projected function by calling the function <code class="docutils literal notranslate"><span class="pre">normalize()</span></code> of <code class="docutils literal notranslate"><span class="pre">f_tree</span></code>.
+Try it in the next cell</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># normalize your function here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Before we go on into the rest of the exercise, it is important to note that whenever a function is shown, and it doesn’t start with <code class="docutils literal notranslate"><span class="pre">vp.</span></code>, it is assumed that it must be called as a member function of the tree, that is <code class="docutils literal notranslate"><span class="pre">f_tree.normalize()</span></code>, otherwise all functions must be called by using the <code class="docutils literal notranslate"><span class="pre">vp.</span></code> prefix.</p>
+<p>Start by multiplying it by a factor of <span class="math notranslate nohighlight">\(2\)</span> and assigning it to a new tree <code class="docutils literal notranslate"><span class="pre">g_tree</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g_tree</span> <span class="o">=</span>  <span class="c1"># &lt;--- assign your rescaled function to this</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You should be able to compare it against <code class="docutils literal notranslate"><span class="pre">f_tree</span></code> by runnning the following cell</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g_plt</span> <span class="o">=</span> <span class="p">[</span> <span class="n">g_tree</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">r_x</span> <span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">g_plt</span><span class="p">,</span> <span class="s2">&quot;tab:red&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">f_plt</span><span class="p">,</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>try adding <code class="docutils literal notranslate"><span class="pre">f_tree</span></code> and <code class="docutils literal notranslate"><span class="pre">g_tree</span></code> together</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h_tree</span> <span class="o">=</span>  <span class="c1"># &lt;--- assign your added functions to this</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>again, you can test this by plotting it against the two other functions by running the following cell</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h_plt</span> <span class="o">=</span> <span class="p">[</span> <span class="n">h_tree</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">r_x</span> <span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">h_plt</span><span class="p">,</span> <span class="s2">&quot;tab:orange&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">g_plt</span><span class="p">,</span> <span class="s2">&quot;tab:red&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">f_plt</span><span class="p">,</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can also check that the norm of the different trees makes sense. This is done by calling the <code class="docutils literal notranslate"><span class="pre">norm()</span></code> value of your tree, try printing it below using the print function. The <code class="docutils literal notranslate"><span class="pre">f_tree</span></code> should be normalized, so its norm should be about <span class="math notranslate nohighlight">\(1.0\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">()</span> <span class="c1"># print the norm of your functions</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Try multiplying your trees with the <code class="docutils literal notranslate"><span class="pre">*</span></code> operator, it should return a new tree which is the product of both, and you can check its norm again.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i_tree</span> <span class="o">=</span>  <span class="c1"># &lt;----- assign you multiplied functions to this</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, you can take the dot product, also called inner product, between two trees by using the <code class="docutils literal notranslate"><span class="pre">vp.dot</span></code> function. You can try this in the cell below. print out the norm of the product as shown above, is it what you would expect?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># take the dot product of f_tree and g_tree</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="operators">
+<h2>2.3 Operators<a class="headerlink" href="#operators" title="Permalink to this headline">¶</a></h2>
+<p>You have already worked with the <code class="docutils literal notranslate"><span class="pre">vp.ScalingProjector</span></code> and will work with the <code class="docutils literal notranslate"><span class="pre">vp.HelmholtzOperator</span></code>. In this part we will work with the Derivative operator, defined as <code class="docutils literal notranslate"><span class="pre">vp.ABGVDerivative</span></code>.
+Try constructing (with the help of <code class="docutils literal notranslate"><span class="pre">help()</span></code>) and applying the operator to your <code class="docutils literal notranslate"><span class="pre">f_tree</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">D</span> <span class="o">=</span>  <span class="c1"># &lt;--- initialize the ABGVDerivative operator here</span>
+<span class="n">df_tree</span> <span class="o">=</span>  <span class="c1">#  &lt;-- set your differentiated f_tree here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Run the cell below to plot your differentiated function</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_plt</span> <span class="o">=</span> <span class="p">[</span> <span class="n">df_tree</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">r_x</span> <span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">df_plt</span><span class="p">,</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span> <span class="c1"># your differentiated function</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">f_plt</span><span class="p">,</span> <span class="s2">&quot;tab:red&quot;</span><span class="p">)</span> <span class="c1"># your function tree</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="../../setup/" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Setting up your system</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="../V2-Hydrogen-atom/" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">V2: The Hydrogen atom</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By The contributors<br/>
+        
+            &copy; Copyright 2021, The contributors.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
