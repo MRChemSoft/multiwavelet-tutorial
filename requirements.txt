@@ -4,8 +4,8 @@ sphinx-book-theme
 sphinx-lesson
 sphinx-thebe
 sphinxcontrib-bibtex
-matplotlib
-ipympl
-ipywidgets
+#matplotlib
+#ipympl
+#ipywidgets
 py3Dmol
-jupytext
+#jupytext
