@@ -4,19 +4,12 @@ channels:
 dependencies:
   - mrchem=1.1.2
   - vampyr=1.0rc0
-  - pytest
   - scipy
   - numpy
   - matplotlib
   - jupyterlab
-  - jupytext
-  - altair
   - plotly
   - pandas
   - python=3.10
-  - openbabel
   - pip
-  - markdown-it-py
-  - linkify-it-py
-  - mdit-py-plugins
   - py3dmol
