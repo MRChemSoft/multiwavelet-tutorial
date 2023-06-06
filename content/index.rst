@@ -78,11 +78,11 @@ Course material
    :widths: auto
    :delim: ;
 
-   [15 min] ; :doc:`notebooks/vampyr-intro`
-   [30 min] ; :doc:`notebooks/vampyr-scf`
-   [30 min] ; :doc:`notebooks/mrchem-laptop-1`
-   [30 min] ; :doc:`notebooks/mrchem-laptop-2`
-   [30 min] ; :doc:`notebooks/mrchem-hpc`
+   15 min ; :doc:`notebooks/vampyr-intro`
+   30 min ; :doc:`notebooks/vampyr-scf`
+   30 min ; :doc:`notebooks/mrchem-laptop-1`
+   30 min ; :doc:`notebooks/mrchem-laptop-2`
+   30 min ; :doc:`notebooks/mrchem-hpc`
 
 
 
